@@ -14,26 +14,29 @@ jobs:
     quality:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            -   name: Checkout code
+                uses: actions/checkout@v7
+                with:
+                    persist-credentials: false
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: '8.4'
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.3'
 
-            - name: Install Dependencies
-              run: |
-                  composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-                  npm install
+            -   name: Install Dependencies
+                run: |
+                    composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+                    npm install
 
-            - name: Run Pint
-              run: vendor/bin/pint
-#
-#            - name: Format Frontend
-#              run: npm run format
-#
-#            - name: Lint Frontend
-#              run: npm run lint
+            -   name: Run Pint
+                run: vendor/bin/pint
+            #
+            #            - name: Format Frontend
+            #              run: npm run format
+            #
+            #            - name: Lint Frontend
+            #              run: npm run lint
 
             # - name: Commit Changes
             #   uses: stefanzweifel/git-auto-commit-action@v5
