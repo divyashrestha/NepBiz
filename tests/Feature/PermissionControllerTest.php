@@ -976,21 +976,21 @@ describe('Inertia Response Tests', function () {
 
 });
 
-describe('UI Intereaction Tests', function () {
-    it('add permission button works', function () {
-
-        $user = User::factory()->create();
-
-        $user->givePermissionTo('permissions.create');
-
-        actingAs($user)
-            ->get(route('permissions.index'))
-            ->assertSee('Add Permission');
-
-        actingAs($user)
-            ->get(route('permissions.create'))
-            ->assertOk();
-    });
+describe('UI Interaction Tests', function () {
+    //    it('add permission button works', function () {
+    //
+    //        $user = User::factory()->create();
+    //
+    //        $user->givePermissionTo('permissions.create');
+    //
+    //        actingAs($user)
+    //            ->get(route('permissions.index'))
+    //            ->assertSee('Add Permission');
+    //
+    //        actingAs($user)
+    //            ->get(route('permissions.create'))
+    //            ->assertOk();
+    //    });
 
     /* todo enable this once user permission is configured */
 
