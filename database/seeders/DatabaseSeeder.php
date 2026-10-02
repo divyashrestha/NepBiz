@@ -50,6 +50,5 @@ class DatabaseSeeder extends Seeder
         $superAdminRole->syncPermissions(Permission::all());
         $adminRole->syncPermissions(Permission::where('name', 'not like', '%delete%')->get());
         $userRole->syncPermissions([$userView, $roleView, $permissionView]);
-//        $superAdmin
     }
 }

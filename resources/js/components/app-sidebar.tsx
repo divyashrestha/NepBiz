@@ -1,9 +1,15 @@
-import {Link, router} from '@inertiajs/react';
-import {BookOpen, FolderGit2, KeyRound, LayoutGrid, Shield, Users} from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import {
+    BookOpen,
+    FolderGit2,
+    KeyRound,
+    LayoutGrid,
+    Shield,
+} from 'lucide-react';
 import AppLogo from '@/components/app-logo';
-import {NavFooter} from '@/components/nav-footer';
-import {NavMain} from '@/components/nav-main';
-import {NavUser} from '@/components/nav-user';
+import { NavFooter } from '@/components/nav-footer';
+import { NavMain } from '@/components/nav-main';
+import { NavUser } from '@/components/nav-user';
 import {
     Sidebar,
     SidebarContent,
@@ -13,10 +19,10 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import {dashboard} from '@/routes';
-import type {NavItem} from '@/types';
-import permissions from "@/routes/permissions";
-import roles from "@/routes/roles";
+import { dashboard } from '@/routes';
+import type { NavItem } from '@/types';
+import permissions from '@/routes/permissions';
+import roles from '@/routes/roles';
 // import permissions from "@/routes/permissions";
 
 const mainNavItems: NavItem[] = [
@@ -63,7 +69,7 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href={dashboard()} prefetch>
-                                <AppLogo/>
+                                <AppLogo />
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -71,12 +77,12 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems}/>
+                <NavMain items={mainNavItems} />
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto"/>
-                <NavUser/>
+                <NavFooter items={footerNavItems} className="mt-auto" />
+                <NavUser />
             </SidebarFooter>
         </Sidebar>
     );

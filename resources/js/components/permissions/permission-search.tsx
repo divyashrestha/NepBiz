@@ -4,12 +4,9 @@ import { Input } from '@/components/ui/input';
 export default function PermissionSearch() {
     return (
         <div className="relative">
-            <Search className="absolute left-3 top-3 h-4 w-4" />
+            <Search className="absolute top-3 left-3 h-4 w-4" />
 
-            <Input
-                className="pl-10"
-                placeholder="Search permissions..."
-            />
+            <Input className="pl-10" placeholder="Search permissions..." />
         </div>
     );
 }

@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+use Inertia\Inertia;
+use Inertia\Response;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         return Inertia::render('roles/index', [
             'roles' => Role::withCount('permissions')
@@ -18,14 +20,14 @@ class RoleController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('roles/create', [
             'permissions' => Permission::all(),
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'name' => ['required', 'unique:roles'],
@@ -44,7 +46,7 @@ class RoleController extends Controller
             ->route('roles.index');
     }
 
-    public function show(Role $role)
+    public function show(Role $role): Response
     {
         $role->load('permissions');
 
@@ -53,7 +55,7 @@ class RoleController extends Controller
         ]);
     }
 
-    public function edit(Role $role)
+    public function edit(Role $role): Response
     {
         return Inertia::render('roles/edit', [
             'role' => $role->load('permissions'),
@@ -61,10 +63,7 @@ class RoleController extends Controller
         ]);
     }
 
-    public function update(
-        Request $request,
-        Role    $role
-    )
+    public function update(Request $request, Role $role): RedirectResponse
     {
         $data = $request->validate([
             'name' => ['required'],
@@ -83,7 +82,7 @@ class RoleController extends Controller
             ->route('roles.index');
     }
 
-    public function destroy(Role $role)
+    public function destroy(Role $role): RedirectResponse
     {
         $role->delete();
 

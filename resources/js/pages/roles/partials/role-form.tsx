@@ -1,17 +1,21 @@
-import {useForm} from '@inertiajs/react';
-import {Button} from '@/components/ui/button';
-import {Input} from '@/components/ui/input';
-import {Permission, Role} from "@/types";
-import {ChangeEvent} from "react";
-import roles from "@/routes/roles";
-import {CustomChangeEvent, CustomSubmitEvent} from "@/types/custom";
+import { useForm } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Permission, Role } from '@/types';
+import roles from '@/routes/roles';
+import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
 
-export default function RoleForm({role, permissions,}: { role: Role, permissions: Permission[] }) {
-    const {data, setData, post, put} =
-        useForm({
-            name: role?.name ?? '',
-            permissions: role?.permissions?.map(p => p.id) ?? [],
-        });
+export default function RoleForm({
+    role,
+    permissions,
+}: {
+    role: Role | undefined;
+    permissions: Permission[];
+}) {
+    const { data, setData, post, put } = useForm({
+        name: role?.name ?? '',
+        permissions: role?.permissions?.map((p) => p.id) ?? [],
+    });
 
     const submit = (e: CustomSubmitEvent) => {
         e.preventDefault();
@@ -25,44 +29,43 @@ export default function RoleForm({role, permissions,}: { role: Role, permissions
     };
 
     return (
-        <form
-            onSubmit={submit}
-            className="space-y-6 p-6"
-        >
+        <form onSubmit={submit} className="space-y-6 p-6">
             <Input
                 value={data.name}
                 placeholder="Role Name"
-                onChange={(e: CustomChangeEvent) => setData('name', e.target.value)}
+                onChange={(e: CustomChangeEvent) =>
+                    setData('name', e.target.value)
+                }
             />
 
-            <div className="grid md:grid-cols-3 gap-4">
-
-                {permissions.map(
-                    permission => (
-                        <label
-                            key={permission.id}
-                            className="flex gap-2"
-                        >
-                            <input
-                                type="checkbox"
-                                checked={data.permissions.includes(permission.id)}
-                                onChange={(e: CustomChangeEvent) => {
-                                    if (e.target.checked) {
-                                        setData('permissions', [...data.permissions, permission.id,]);
-                                    } else {
-                                        setData('permissions', data.permissions.filter(id => id !== permission.id));
-                                    }
-                                }}
-                            />
-                            {permission.name}
-                        </label>
-                    )
-                )}
-
+            <div className="grid gap-4 md:grid-cols-3">
+                {permissions.map((permission) => (
+                    <label key={permission.id} className="flex gap-2">
+                        <input
+                            type="checkbox"
+                            checked={data.permissions.includes(permission.id)}
+                            onChange={(e: CustomChangeEvent) => {
+                                if (e.target.checked) {
+                                    setData('permissions', [
+                                        ...data.permissions,
+                                        permission.id,
+                                    ]);
+                                } else {
+                                    setData(
+                                        'permissions',
+                                        data.permissions.filter(
+                                            (id) => id !== permission.id,
+                                        ),
+                                    );
+                                }
+                            }}
+                        />
+                        {permission.name}
+                    </label>
+                ))}
             </div>
 
             <Button>{role ? 'Update Role' : 'Create Role'}</Button>
-
         </form>
     );
 }
