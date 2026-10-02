@@ -1,16 +1,14 @@
 import {Link, useForm} from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
 import permissions from "@/routes/permissions";
 import {Permission} from "@/types";
-import {ChangeEvent} from "react";
+import {CustomChangeEvent, CustomSubmitEvent} from "@/types/custom";
 
-export default function PermissionForm({ permission = null }:{permission: Permission| null}) {
-    const { data, setData, post, put, processing, errors } = useForm({
-        name: permission?.name ?? '',
-    });
+export default function PermissionForm({permission = null}: { permission: Permission | null }) {
+    const {data, setData, post, put, processing, errors} = useForm({name: permission?.name ?? ''});
 
-    const submit = (e: SubmitEvent) => {
+    const submit = (e: CustomSubmitEvent) => {
         e.preventDefault();
 
         if (permission) {
@@ -23,15 +21,11 @@ export default function PermissionForm({ permission = null }:{permission: Permis
 
 
     return (
-        // todo  fix this error when available
-        // @ts-ignore
         <form onSubmit={submit} className="space-y-4 max-w-xl">
             <Input
                 value={data.name}
                 placeholder="Permission Name"
-                onChange={(e: ChangeEvent) => {
-                    // todo  fix this error when available
-                    // @ts-ignore
+                onChange={(e: CustomChangeEvent) => {
                     setData('name', e.currentTarget?.value);
                 }}
             />
@@ -46,7 +40,7 @@ export default function PermissionForm({ permission = null }:{permission: Permis
                 {permission ? 'Update' : 'Create'}
             </Button>
             <Link href={permissions.index()} className={'btn mx-2'}>
-                 Back
+                Back
             </Link>
         </form>
     );

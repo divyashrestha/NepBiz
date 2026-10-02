@@ -16,6 +16,7 @@ import {
 import {dashboard} from '@/routes';
 import type {NavItem} from '@/types';
 import permissions from "@/routes/permissions";
+import roles from "@/routes/roles";
 // import permissions from "@/routes/permissions";
 
 const mainNavItems: NavItem[] = [
@@ -24,14 +25,14 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
-    {
-        title: 'Users',
-        href: dashboard(),
-        icon: Users,
-    },
+    // {
+    //     title: 'Users',
+    //     href: users,
+    //     icon: Users,
+    // },
     {
         title: 'Role',
-        href: dashboard(),
+        href: roles.index(),
         icon: Shield,
     },
     {
