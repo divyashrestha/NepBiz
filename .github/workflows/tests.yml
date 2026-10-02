@@ -39,10 +39,14 @@ jobs:
                 run: composer setup
 
             -   name: Start Laravel Server
-                uses: composer dev &
+                run: php artisan serve --host=127.0.0.1 --port=8000 > /dev/null 2>&1 &
 
             -   name: Wait for Server
-                run: sleep 5
+                run: |
+                    for i in {1..30}; do
+                      curl -s http://127.0.0.1:8000 && break
+                      sleep 1
+                    done
 
             -   name: Run CI Checks
                 run: composer ci:check
