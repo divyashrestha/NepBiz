@@ -5,7 +5,6 @@ export default function PermissionStats({
 }: {
     permissions: Permission[];
 }) {
-    console.log('PermissionStats', permissions);
     return (
         <div className="grid gap-4 md:grid-cols-3">
             <div className="rounded-xl border p-5">

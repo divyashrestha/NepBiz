@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Permission, Role } from '@/types';
@@ -66,6 +66,9 @@ export default function RoleForm({
             </div>
 
             <Button>{role ? 'Update Role' : 'Create Role'}</Button>
+            <Link href={roles.index()} className={'btn mx-2'}>
+                Back
+            </Link>
         </form>
     );
 }

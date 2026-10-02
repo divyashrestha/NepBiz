@@ -1,4 +1,6 @@
 import { Permission } from '@/types';
+import { Link } from '@inertiajs/react';
+import roles from '@/routes/roles';
 
 export default function Show({ role }: { role: any }) {
     return (
@@ -19,6 +21,10 @@ export default function Show({ role }: { role: any }) {
                     ))}
                 </div>
             </div>
+
+            <Link href={roles.index()} className={'btn mx-2'}>
+                Back
+            </Link>
         </div>
     );
 }
