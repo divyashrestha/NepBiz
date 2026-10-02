@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+class RoleController extends Controller
+{
+    public function index(): Response
+    {
+        return Inertia::render('roles/index', [
+            'roles' => Role::withCount('permissions')
+                ->latest()
+                ->paginate(10),
+        ]);
+    }
+
+    public function create(): Response
+    {
+        return Inertia::render('roles/create', [
+            'permissions' => Permission::all(),
+        ]);
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => ['required', 'unique:roles'],
+            'permissions' => ['array'],
+        ]);
+
+        $role = Role::create([
+            'name' => $data['name'],
+        ]);
+
+        $role->syncPermissions(
+            $data['permissions'] ?? []
+        );
+
+        return redirect()
+            ->route('roles.index');
+    }
+
+    public function show(Role $role): Response
+    {
+        $role->load('permissions');
+
+        return Inertia::render('roles/show', [
+            'role' => $role,
+        ]);
+    }
+
+    public function edit(Role $role): Response
+    {
+        return Inertia::render('roles/edit', [
+            'role' => $role->load('permissions'),
+            'permissions' => Permission::all(),
+        ]);
+    }
+
+    public function update(Request $request, Role $role): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => ['required'],
+            'permissions' => ['array'],
+        ]);
+
+        $role->update([
+            'name' => $data['name'],
+        ]);
+
+        $role->syncPermissions(
+            $data['permissions'] ?? []
+        );
+
+        return redirect()
+            ->route('roles.index');
+    }
+
+    public function destroy(Role $role): RedirectResponse
+    {
+        $role->delete();
+
+        return redirect()
+            ->route('roles.index');
+    }
+}
