@@ -1,9 +1,9 @@
-import { Permission } from '@/types';
+import { PermissionWithRoleCount } from '@/types';
 
 export default function PermissionStats({
     permissions,
 }: {
-    permissions: Permission[];
+    permissions: PermissionWithRoleCount[];
 }) {
     return (
         <div className="grid gap-4 md:grid-cols-3">
@@ -18,8 +18,9 @@ export default function PermissionStats({
 
                 <p className="text-3xl font-bold">
                     {
-                        permissions.filter((p: Permission) => p.roles_count > 0)
-                            .length
+                        permissions.filter(
+                            (p: PermissionWithRoleCount) => p.roles_count > 0,
+                        ).length
                     }
                 </p>
             </div>
@@ -30,7 +31,7 @@ export default function PermissionStats({
                 <p className="text-3xl font-bold">
                     {
                         permissions.filter(
-                            (p: Permission) => p.roles_count === 0,
+                            (p: PermissionWithRoleCount) => p.roles_count === 0,
                         ).length
                     }
                 </p>

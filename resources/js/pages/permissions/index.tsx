@@ -2,7 +2,7 @@ import PermissionTable from './partials/permission-table';
 import PermissionStats from '@/components/permissions/permission-stats';
 import PermissionSearch from '@/components/permissions/permission-search';
 import { Button } from '@/components/ui/button';
-import { Link } from '@inertiajs/react';
+import {Head, Link} from '@inertiajs/react';
 import { KeyRound, Plus } from 'lucide-react';
 import * as permissionRoutes from '@/routes/permissions';
 import { PermissionIndex } from '@/types';
@@ -13,6 +13,8 @@ export default function Index({
     permissions: PermissionIndex;
 }) {
     return (
+        <>
+            <Head title="Permissions"/>
         <div className="space-y-6 p-6">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -34,5 +36,16 @@ export default function Index({
 
             <PermissionTable permissions={permissions.data} />
         </div>
+        </>
     );
 }
+Index.layout = {
+    breadcrumbs: [
+        {
+            title: 'Permissions',
+            href: permissionRoutes.index
+        }
+
+    ]
+}
+

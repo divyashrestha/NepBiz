@@ -1,9 +1,13 @@
 import PermissionForm from './partials/permission-form';
 import { KeyRound } from 'lucide-react';
 import { Permission } from '@/types';
+import {Head} from "@inertiajs/react";
+import permissions from "@/routes/permissions";
 
 export default function Edit({ permission }: { permission: Permission }) {
     return (
+        <>
+            <Head title="Edit Permission"/>
         <div className="p-6">
             <div className="mb-2 flex items-center gap-2">
                 <KeyRound />
@@ -11,5 +15,16 @@ export default function Edit({ permission }: { permission: Permission }) {
             </div>
             <PermissionForm permission={permission} />
         </div>
+        </>
     );
+}
+
+Edit.layout = {
+    breadcrumbs: [
+        {
+            title: 'Edit Permission',
+            href: permissions.edit
+        }
+
+    ]
 }

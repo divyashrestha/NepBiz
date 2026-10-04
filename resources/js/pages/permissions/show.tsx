@@ -1,9 +1,11 @@
 import permissions from '@/routes/permissions';
-import { Link } from '@inertiajs/react';
+import {Head, Link} from '@inertiajs/react';
 import { Permission } from '@/types';
 
 export default function Show({ permission }: { permission: Permission }) {
     return (
+        <>
+            <Head title="Show roles"/>
         <div className="p-6">
             <h1 className="mb-4 text-2xl font-bold">Permission Details</h1>
 
@@ -21,5 +23,17 @@ export default function Show({ permission }: { permission: Permission }) {
                 Back
             </Link>
         </div>
+        </>
     );
 }
+
+Show.layout = {
+    breadcrumbs: [
+        {
+            title: 'Show permission',
+            href: permissions.show
+        }
+
+    ]
+}
+
