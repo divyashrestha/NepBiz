@@ -1,5 +1,5 @@
 import { Permission } from '@/types/permission';
-import {User} from "@/types/auth";
+import { User } from '@/types/auth';
 
 export type Role = {
     id: number;

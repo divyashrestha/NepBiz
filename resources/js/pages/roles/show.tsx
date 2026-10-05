@@ -1,15 +1,12 @@
-import {
-    Permission, RoleWithPermissionsUsers,
-    User
-} from '@/types';
-import {Head, Link} from '@inertiajs/react';
+import { Permission, RoleWithPermissionsUsers, User } from '@/types';
+import { Head, Link } from '@inertiajs/react';
 import roles from '@/routes/roles';
 
-export default function Show({role}: { role: RoleWithPermissionsUsers }) {
+export default function Show({ role }: { role: RoleWithPermissionsUsers }) {
     console.log(role);
     return (
         <>
-            <Head title="Show roles"/>
+            <Head title="Show roles" />
             <div className="p-6">
                 <h1 className="text-2xl font-bold">{role.name}</h1>
 
@@ -22,8 +19,8 @@ export default function Show({role}: { role: RoleWithPermissionsUsers }) {
                                 key={permission.id}
                                 className="rounded bg-primary px-3 py-1 text-primary-foreground"
                             >
-                            {permission.name}
-                        </span>
+                                {permission.name}
+                            </span>
                         ))}
                     </div>
                 </div>
@@ -37,8 +34,8 @@ export default function Show({role}: { role: RoleWithPermissionsUsers }) {
                                 key={user.id}
                                 className="rounded bg-primary px-3 py-1 text-primary-foreground"
                             >
-                            {user.name}
-                        </span>
+                                {user.name}
+                            </span>
                         ))}
                     </div>
                 </div>
@@ -54,8 +51,7 @@ Show.layout = {
     breadcrumbs: [
         {
             title: 'Show Role',
-            href: roles.show
-        }
-
-    ]
-}
+            href: roles.show,
+        },
+    ],
+};
