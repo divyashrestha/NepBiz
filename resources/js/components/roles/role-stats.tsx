@@ -1,16 +1,12 @@
-import { PermissionWithRoleCount } from '@/types';
+import { RoleWithCounts } from '@/types';
 
-export default function PermissionStats({
-    permissions,
-}: {
-    permissions: PermissionWithRoleCount[];
-}) {
+export default function RoleStats({ roles }: { roles: RoleWithCounts[] }) {
     return (
         <div className="grid gap-4 md:grid-cols-3">
             <div className="rounded-xl border p-5">
-                <h3>Total Permissions</h3>
+                <h3>Total Roles</h3>
 
-                <p className="text-3xl font-bold">{permissions.length}</p>
+                <p className="text-3xl font-bold">{roles.length}</p>
             </div>
 
             <div className="rounded-xl border p-5">
@@ -18,9 +14,8 @@ export default function PermissionStats({
 
                 <p className="text-3xl font-bold">
                     {
-                        permissions.filter(
-                            (p: PermissionWithRoleCount) => p.roles_count > 0,
-                        ).length
+                        roles.filter((r: RoleWithCounts) => r?.users_count > 0)
+                            .length
                     }
                 </p>
             </div>
@@ -30,9 +25,8 @@ export default function PermissionStats({
 
                 <p className="text-3xl font-bold">
                     {
-                        permissions.filter(
-                            (p: PermissionWithRoleCount) => p.roles_count === 0,
-                        ).length
+                        roles.filter((r: RoleWithCounts) => r.users_count === 0)
+                            .length
                     }
                 </p>
             </div>

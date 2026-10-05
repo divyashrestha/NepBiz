@@ -57,7 +57,11 @@
             "Composer\\Config::disableProcessTimeout",
             "@php artisan dev"
         ],
+        "lint:js": [
+            "npm run check:fix"
+        ],
         "lint": [
+            "@lint:js",
             "pint --parallel"
         ],
         "lint:check": [

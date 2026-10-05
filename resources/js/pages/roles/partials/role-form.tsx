@@ -1,7 +1,7 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Permission, Role } from '@/types';
+import { Permission, RoleWithPermissionsUsers } from '@/types';
 import roles from '@/routes/roles';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
 
@@ -9,7 +9,7 @@ export default function RoleForm({
     role,
     permissions,
 }: {
-    role: Role | undefined;
+    role: RoleWithPermissionsUsers | undefined;
     permissions: Permission[];
 }) {
     const { data, setData, post, put } = useForm({
