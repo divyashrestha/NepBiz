@@ -60,15 +60,11 @@
         "lint:js": [
             "npm run check:fix"
         ],
-        "lint:js-check": [
-            "npm run check:fix"
-        ],
         "lint": [
             "@lint:js",
             "pint --parallel"
         ],
         "lint:check": [
-            "@lint:js-check",
             "pint --parallel --test"
         ],
         "ci:check": [
