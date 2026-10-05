@@ -14,7 +14,7 @@ class RoleController extends Controller
     public function index(): Response
     {
         return Inertia::render('roles/index', [
-            'roles' => Role::withCount('permissions')
+            'roles' => Role::withCount('users', 'permissions')
                 ->latest()
                 ->paginate(10),
         ]);
@@ -48,7 +48,7 @@ class RoleController extends Controller
 
     public function show(Role $role): Response
     {
-        $role->load('permissions');
+        $role->load('permissions', 'users');
 
         return Inertia::render('roles/show', [
             'role' => $role,

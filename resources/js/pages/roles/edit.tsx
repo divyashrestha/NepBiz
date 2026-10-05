@@ -1,12 +1,28 @@
 import RoleForm from './partials/role-form';
-import { Permission, Role } from '@/types';
+import {Permission, RoleWithPermissionsUsers} from '@/types';
+import {Head} from "@inertiajs/react";
+import roles from "@/routes/roles";
 
 export default function Edit({
-    role,
-    permissions,
-}: {
-    role: Role;
+                                 role,
+                                 permissions,
+                             }: {
+    role: RoleWithPermissionsUsers;
     permissions: Permission[];
 }) {
-    return <RoleForm role={role} permissions={permissions} />;
+    return (
+        <>
+            <Head title="Edit role"/>
+            <RoleForm role={role} permissions={permissions}/>
+        </>);
 }
+Edit.layout = {
+    breadcrumbs: [
+        {
+            title: 'Edit Role',
+            href: roles.edit
+        }
+
+    ]
+}
+
