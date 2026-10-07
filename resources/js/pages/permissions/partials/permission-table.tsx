@@ -2,9 +2,7 @@ import PermissionActions from '@/components/permissions/permission-actions';
 import Pagination from '@/components/pagination';
 import { PermissionIndex, PermissionWithRoleCount } from '@/types';
 
-type PermissionProps = {
-    permissions: PermissionIndex;
-};
+type PermissionProps = { permissions: PermissionIndex };
 
 export default function PermissionTable({ permissions }: PermissionProps) {
     return (
