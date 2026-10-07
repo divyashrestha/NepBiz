@@ -50,7 +50,7 @@ jobs:
                             echo "Server is started successfully"
                             exit 0
                         fi
-                        echo "Waiting for Laravel health check... ($i/5)"
+                        echo "Waiting for server... ($i/5)"
                         sleep 1
                     done
                     echo "Error: Server failed to start within 5 seconds"
