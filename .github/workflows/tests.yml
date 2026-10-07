@@ -28,38 +28,58 @@ jobs:
                     tools: composer:v2
                     coverage: none
 
-            -   name: Get composer cache directory
-                id: composer-cache
-                run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-            -   name: Cache vendor
-                uses: actions/cache@v4
-                with:
-                    path: vendor
-                    key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
-                    restore-keys: |
-                        ${{ runner.os }}-vendor-
-            -   name: Cache dependencies
-                uses: actions/cache@v4
-                with:
-                    path: ${{ steps.composer-cache.outputs.dir }}
-                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                    restore-keys: ${{ runner.os }}-composer-
+#            -   name: Get composer cache directory
+#                id: composer-cache
+#                run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+#
+#            -   name: Cache vendor
+#                uses: actions/cache@v6
+#                with:
+#                    path: vendor
+#                    key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
+#                    restore-keys: |
+#                        ${{ runner.os }}-vendor-
+#
+#            -   name: Cache dependencies
+#                uses: actions/cache@v6
+#                with:
+#                    path: ${{ steps.composer-cache.outputs.dir }}
+#                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+#                    restore-keys: ${{ runner.os }}-composer-
 
             -   name: Setup Node
                 uses: actions/setup-node@v7
                 with:
                     node-version: '22'
                     cache: 'npm'
-            -   name: Cache node_modules
-                uses: actions/cache@v3
-                with:
-                    path: node_modules
-                    key: ${{ runner.os }}-node-${{ hashFiles('**/composer.lock') }}
-                    restore-keys: |
-                        ${{ runner.os }}-node-
-            -   name: Setup Application
-                run: composer setup
+
+#            -   name: Cache node_modules
+#                uses: actions/cache@v6
+#                with:
+#                    path: node_modules
+#                    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#                    restore-keys: |
+#                        ${{ runner.os }}-node-
+            -   name: install composer
+                run: composer install
+
+            -   name: generate .env file
+                run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+            -   name: generate key
+                run: php artisan key:generate
+
+            -   name: migrate database
+                run: php artisan migrate --force
+
+            -   name: Install node_modules
+                run: npm install
+
+            -   name: generate build
+                run: npm run build
+
+#            -   name: Setup Application
+#                run: composer setup
 
             -   name: Start Laravel Server
                 run: composer run dev > /dev/null 2>&1 &
