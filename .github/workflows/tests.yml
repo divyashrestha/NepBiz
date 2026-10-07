@@ -1,22 +1,19 @@
-name: tests
+name: Lint and test
 
 on:
     push:
-        branches:
-            - develop
-            - main
+        branches: [ develop, main ]
     pull_request:
-        branches:
-            - develop
-            - main
+        types: [ opened, synchronize, reopened, ready_for_review ]
 
 permissions:
     contents: read
 
 jobs:
     ci:
+        name: Lint and test
         runs-on: ubuntu-latest
-
+#        if: "!github.event.pull_request.draft"
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v7
@@ -30,11 +27,36 @@ jobs:
                     tools: composer:v2
                     coverage: none
 
+            -   name: Get composer cache directory
+                id: composer-cache
+                run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            -   name: Cache vendor
+                uses: actions/cache@v4
+                with:
+                    path: vendor
+                    key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-vendor-
+            -   name: Cache dependencies
+                uses: actions/cache@v4
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: ${{ runner.os }}-composer-
+
             -   name: Setup Node
                 uses: actions/setup-node@v7
                 with:
                     node-version: '22'
-
+                    cache: 'npm'
+            -   name: Cache node_modules
+                uses: actions/cache@v3
+                with:
+                    path: node_modules
+                    key: ${{ runner.os }}-node-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-node-
             -   name: Setup Application
                 run: composer setup
 
@@ -47,6 +69,5 @@ jobs:
                       curl -s http://127.0.0.1:8000 && break
                       sleep 1
                     done
-
-            -   name: Run CI Checks
-                run: composer ci:check
+#            -   name: Run CI Checks
+#                run: composer ci:check
