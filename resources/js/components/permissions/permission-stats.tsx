@@ -1,6 +1,6 @@
 import { UsedUnusedStats } from '@/types';
 
-type PermissionStatsProps = { stats: UsedUnusedStats }
+type PermissionStatsProps = { stats: UsedUnusedStats };
 
 export default function PermissionStats({ stats }: PermissionStatsProps) {
     return (
