@@ -3,8 +3,16 @@ import { Eye, Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Role } from '@/types';
 import roles from '@/routes/roles';
+import permissions from "@/routes/permissions";
 
-export default function RoleActions({ role }: { role: Role }) {
+type RoleActionsProps = { role: Role }
+
+export default function RoleActions({ role }: RoleActionsProps) {
+    const destroy = () => {
+        if (confirm('Are you sure you want to delete this Role?')) {
+            router.delete(roles.destroy(role.id).url)
+        }
+    };
     return (
         <div className="flex gap-2">
             <Link href={roles.show(role.id)}>
@@ -22,7 +30,7 @@ export default function RoleActions({ role }: { role: Role }) {
             <Button
                 size="icon"
                 variant="destructive"
-                onClick={() => router.delete(roles.destroy(role.id))}
+                onClick={destroy}
             >
                 <Trash2 />
             </Button>

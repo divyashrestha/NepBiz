@@ -5,13 +5,9 @@ import { Permission, RoleWithPermissionsUsers } from '@/types';
 import roles from '@/routes/roles';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
 
-export default function RoleForm({
-    role,
-    permissions,
-}: {
-    role: RoleWithPermissionsUsers | undefined;
-    permissions: Permission[];
-}) {
+type RoleFormProps = { role: RoleWithPermissionsUsers | undefined; permissions: Permission[]; }
+
+export default function RoleForm({role, permissions,}: RoleFormProps) {
     const { data, setData, post, put } = useForm({
         name: role?.name ?? '',
         permissions: role?.permissions?.map((p) => p.id) ?? [],

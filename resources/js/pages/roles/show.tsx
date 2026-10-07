@@ -26,7 +26,7 @@ export default function Show({ role }: { role: RoleWithPermissionsUsers }) {
                 </div>
 
                 <div className="mt-6">
-                    <h2>Roles</h2>
+                    <h2>Users</h2>
 
                     <div className="mt-3 flex flex-wrap gap-2">
                         {role.users.map((user: User) => (

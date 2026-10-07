@@ -1,8 +1,12 @@
 import RoleActions from '@/components/roles/role-actions';
-import { RoleWithCounts } from '@/types';
+import {RoleIndex, RoleWithCounts} from '@/types';
+import Pagination from "@/components/pagination";
 
-export default function RoleTable({ roles }: { roles: RoleWithCounts[] }) {
+type RoleTableProps= { roles: RoleIndex }
+
+export default function RoleTable({ roles }: RoleTableProps) {
     return (
+        <div className="rounded-xl border">
         <table className="w-full">
             <thead>
                 <tr>
@@ -14,7 +18,11 @@ export default function RoleTable({ roles }: { roles: RoleWithCounts[] }) {
             </thead>
 
             <tbody>
-                {roles.map((role: RoleWithCounts) => (
+                {roles.data.length==0 ? (
+                    <tr>
+                        <td className={'text-center'} colSpan={4}> No roles found</td>
+                    </tr>
+                ) :(roles.data.map((role: RoleWithCounts) => (
                     <tr key={role.id}>
                         <td className={'text-center'}>{role.name}</td>
 
@@ -28,8 +36,10 @@ export default function RoleTable({ roles }: { roles: RoleWithCounts[] }) {
                             <RoleActions role={role} />
                         </td>
                     </tr>
-                ))}
+                )))}
             </tbody>
         </table>
+            <Pagination links={roles.links}/>
+        </div>
     );
 }
