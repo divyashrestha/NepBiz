@@ -5,6 +5,7 @@ import {
     KeyRound,
     LayoutGrid,
     Shield,
+    Users,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
@@ -23,7 +24,7 @@ import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 import permissions from '@/routes/permissions';
 import roles from '@/routes/roles';
-// import permissions from "@/routes/permissions";
+import users from '@/routes/users';
 
 const mainNavItems: NavItem[] = [
     {
@@ -31,11 +32,11 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
-    // {
-    //     title: 'Users',
-    //     href: users,
-    //     icon: Users,
-    // },
+    {
+        title: 'Users',
+        href: users.index(),
+        icon: Users,
+    },
     {
         title: 'Role',
         href: roles.index(),
