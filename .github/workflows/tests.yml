@@ -9,6 +9,10 @@ on:
 permissions:
     contents: read
 
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
 jobs:
     ci:
         name: Lint and test
@@ -51,13 +55,6 @@ jobs:
                 with:
                     node-version: '22'
                     cache: 'npm'
-            -   name: Cache node_modules
-                uses: actions/cache@v3
-                with:
-                    path: node_modules
-                    key: ${{ runner.os }}-node-${{ hashFiles('**/composer.lock') }}
-                    restore-keys: |
-                        ${{ runner.os }}-node-
 
             -   name: Setup Application
                 run: composer setup
@@ -67,10 +64,16 @@ jobs:
 
             -   name: Wait for Server
                 run: |
-                    for i in {1..30}; do
-                      curl -s http://127.0.0.1:8000 && break
-                      sleep 1
+                    for i in {1..5}; do
+                        if curl -f -s http://localhost:8000/health; then
+                            echo "Server is started successfully"
+                            exit 0
+                        fi
+                        echo "Waiting for server... ($i/5)"
+                        sleep 1
                     done
+                    echo "Error: Server failed to start within 5 seconds"
+                    exit 1
 
 #            -   name: Run CI Checks
 #                run: composer ci:check
