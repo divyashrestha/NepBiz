@@ -15,7 +15,15 @@ export type UserFilter = {
     search: string;
 };
 
-export type UserStatus = {
+export type UserCustomStats = {
     roles_count: number;
     users_count: number;
+};
+
+export type UserErrors = {
+    name: string;
+    email: string;
+    password: string;
+    roles: string;
+    permissions: string;
 };

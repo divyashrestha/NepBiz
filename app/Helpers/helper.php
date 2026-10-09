@@ -1,33 +1,18 @@
 <?php
 
 if (! function_exists('print_array')) {
-    /**
-     * @param  array<string,mixed>  $array
-     */
-    function print_a(array $array): void
+    function print_a(mixed $array): void
     {
         echo '<pre>';
         print_r($array);
+        echo '</pre>';
     }
 }
 
 if (! function_exists('print_b')) {
-    /**
-     * @param  array<string,mixed>  $array
-     */
-    function print_b(array $array): void
+    function print_b(mixed $array): void
     {
         print_a($array);
         exit;
-    }
-}
-
-if (! function_exists('console_log')) {
-    /**
-     * @param  array<string,mixed>  $array
-     */
-    function console_log(array $array): void
-    {
-        logger('console log', $array);
     }
 }

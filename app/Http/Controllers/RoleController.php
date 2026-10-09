@@ -34,7 +34,9 @@ class RoleController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('roles/create', []);
+        return Inertia::render('roles/create', [
+            'permissions' => Permission::all(['id', 'name']),
+        ]);
     }
 
     public function store(Request $request): RedirectResponse

@@ -5,15 +5,16 @@ import { useDebounce } from '@/lib/debounce';
 import { router } from '@inertiajs/react';
 import { CustomChangeEvent } from '@/types/custom';
 
+type CustomSearchProps = {
+    search: string;
+    url: string;
+    placeholder: string;
+};
 export default function CustomSearch({
     search,
     url,
     placeholder,
-}: {
-    search: string;
-    url: string;
-    placeholder: string;
-}) {
+}: CustomSearchProps) {
     const [filterSearch, setFilterSearch] = useState(search);
     const [mounted, setMounted] = useState(false);
     const debouncedSearch = useDebounce(filterSearch, 500);

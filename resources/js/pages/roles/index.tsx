@@ -7,13 +7,13 @@ import * as roleRoutes from '@/routes/roles';
 import RoleStats from '@/components/roles/role-stats';
 import CustomSearch from '@/components/custom-search';
 
-type RoleIndexType = {
+type RoleIndexProps = {
     roles: RoleIndex;
     filters: CustomFilter;
     stats: UsedUnusedStats;
 };
 
-export default function Index({ roles, filters, stats }: RoleIndexType) {
+export default function Index({ roles, filters, stats }: RoleIndexProps) {
     return (
         <>
             <Head title="Roles" />

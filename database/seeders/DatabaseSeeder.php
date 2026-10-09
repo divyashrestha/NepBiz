@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // User creation
         $superAdminUser = User::factory()->create([
             'name' => 'Super Admin User',
             'email' => 'super.admin@example.com',
@@ -25,30 +26,44 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@example.com',
         ]);
-        $adminUser = User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'User',
             'email' => 'User@example.com',
         ]);
+
+        // Role creation
         $superAdminRole = Role::findOrCreate('Super Admin');
         $adminRole = Role::findOrCreate('Admin');
         $userRole = Role::findOrCreate('User');
 
-        $userView = Permission::findOrCreate('users.view');
-        $userCreate = Permission::findOrCreate('users.create');
-        $userUpdate = Permission::findOrCreate('users.update');
-        $userDelete = Permission::findOrCreate('users.delete');
+        // Permission creation
+        $modules = ['users', 'roles', 'permissions'];
+        $actions = ['view', 'create', 'update', 'delete'];
+        foreach ($modules as $module) {
+            foreach ($actions as $action) {
+                Permission::findOrCreate("{$module}.{$action}");
+            }
+        }
 
-        $roleView = Permission::findOrCreate('roles.view');
-        $roleCreate = Permission::findOrCreate('roles.create');
-        $roleUpdate = Permission::findOrCreate('roles.update');
-        $roleDelete = Permission::findOrCreate('roles.delete');
+        // Assigning roles and permissions
+        $exceptAdminPermission = ['permissions.delete', 'permissions.create', 'permissions.update'];
+        $adminRole->syncPermissions(Permission::whereNotIn('name', $exceptAdminPermission)->get());
 
-        $permissionView = Permission::findOrCreate('permissions.view');
-        $permissionCreate = Permission::findOrCreate('permissions.create');
-        $permissionUpdate = Permission::findOrCreate('permissions.update');
-        $permissionDelete = Permission::findOrCreate('permissions.delete');
-        $superAdminRole->syncPermissions(Permission::all());
-        $adminRole->syncPermissions(Permission::where('name', 'not like', '%delete%')->get());
-        $userRole->syncPermissions([$userView, $roleView, $permissionView]);
+        $excludedKeywords = ['delete', 'create', 'update'];
+        $permissions = Permission::whereNotIn('id', function ($query) use ($excludedKeywords) {
+            $query->select('id')
+                ->from('permissions')
+                ->where(function ($sub) use ($excludedKeywords) {
+                    foreach ($excludedKeywords as $keyword) {
+                        $sub->orWhere('name', 'like', "%{$keyword}");
+                    }
+                });
+        })->get();
+        $userRole->syncPermissions($permissions);
+
+        // Assigning roles
+        $superAdminUser->assignRole($superAdminRole);
+        $adminUser->assignRole($adminRole);
+        $user->assignRole($userRole);
     }
 }

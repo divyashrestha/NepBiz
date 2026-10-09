@@ -5,3 +5,4 @@ export type * from './permission';
 export type * from './roles';
 export type * from './user';
 export type * from './custom';
+export type * from './form';
