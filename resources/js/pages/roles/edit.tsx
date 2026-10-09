@@ -3,13 +3,12 @@ import { Permission, RoleWithPermissionsUsers } from '@/types';
 import { Head } from '@inertiajs/react';
 import roles from '@/routes/roles';
 
-export default function Edit({
-    role,
-    permissions,
-}: {
+type EditProps = {
     role: RoleWithPermissionsUsers;
     permissions: Permission[];
-}) {
+};
+
+export default function Edit({ role, permissions }: EditProps) {
     return (
         <>
             <Head title="Edit role" />

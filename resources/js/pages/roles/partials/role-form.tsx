@@ -1,17 +1,16 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Permission, RoleWithPermissionsUsers } from '@/types';
+import { CheckboxOption, Permission, RoleWithPermissionsUsers } from '@/types';
 import roles from '@/routes/roles';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
+import { FormRow } from '@/components/ui/form/index.';
 
-export default function RoleForm({
-    role,
-    permissions,
-}: {
+type RoleFormProps = {
     role: RoleWithPermissionsUsers | undefined;
     permissions: Permission[];
-}) {
+};
+
+export default function RoleForm({ role, permissions }: RoleFormProps) {
     const { data, setData, post, put } = useForm({
         name: role?.name ?? '',
         permissions: role?.permissions?.map((p) => p.id) ?? [],
@@ -28,47 +27,52 @@ export default function RoleForm({
         post(roles.index().url);
     };
 
+    const setPermissions = (
+        permission: CheckboxOption,
+        e: CustomChangeEvent,
+    ) => {
+        const permissionId = Number(permission.id);
+        const isChecked = e.target.checked;
+
+        setData((prev) => {
+            const updatedPermissions = isChecked
+                ? [...prev.permissions, permissionId]
+                : prev.permissions.filter((id) => id !== permissionId);
+
+            return { ...prev, permissions: updatedPermissions };
+        });
+    };
+
+    // @ts-ignore
     return (
         <form onSubmit={submit} className="space-y-6 p-6">
-            <Input
-                value={data.name}
-                placeholder="Role Name"
-                onChange={(e: CustomChangeEvent) =>
-                    setData('name', e.target.value)
-                }
-            />
+            <FormRow>
+                <FormRow.Label>Full Name</FormRow.Label>
+                <FormRow.Input
+                    type="text"
+                    value={data.name}
+                    placeholder="Enter full name"
+                    onChange={(e: CustomChangeEvent) =>
+                        setData('name', e.target.value)
+                    }
+                />
+            </FormRow>
 
-            <div className="grid gap-4 md:grid-cols-3">
-                {permissions.map((permission) => (
-                    <label key={permission.id} className="flex gap-2">
-                        <input
-                            type="checkbox"
-                            checked={data.permissions.includes(permission.id)}
-                            onChange={(e: CustomChangeEvent) => {
-                                if (e.target.checked) {
-                                    setData('permissions', [
-                                        ...data.permissions,
-                                        permission.id,
-                                    ]);
-                                } else {
-                                    setData(
-                                        'permissions',
-                                        data.permissions.filter(
-                                            (id) => id !== permission.id,
-                                        ),
-                                    );
-                                }
-                            }}
-                        />
-                        {permission.name}
-                    </label>
-                ))}
+            <FormRow>
+                <FormRow.Label>Permissions</FormRow.Label>
+                <FormRow.CheckboxGroup
+                    options={permissions}
+                    selectedValues={data.permissions}
+                    onChange={setPermissions}
+                />
+            </FormRow>
+
+            <div className="flex justify-end pt-4">
+                <Button>{role ? 'Update Role' : 'Create Role'}</Button>
+                <Link href={roles.index()} className={'btn mx-2'}>
+                    Back
+                </Link>
             </div>
-
-            <Button>{role ? 'Update Role' : 'Create Role'}</Button>
-            <Link href={roles.index()} className={'btn mx-2'}>
-                Back
-            </Link>
         </form>
     );
 }

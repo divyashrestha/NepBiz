@@ -1,21 +1,29 @@
-import { Permission, RoleWithPermissionsUsers, User } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Permission, Role, User } from '@/types';
 import roles from '@/routes/roles';
+import { Head, Link } from '@inertiajs/react';
+import users from '@/routes/users';
 
-type ShowProps = { role: RoleWithPermissionsUsers };
+type ShowProps = { user: User & { permissions: Permission[]; roles: Role[] } };
 
-export default function Show({ role }: ShowProps) {
+export default function Show({ user }: ShowProps) {
     return (
         <>
-            <Head title="Show roles" />
+            <Head title={'Show user'}></Head>
             <div className="p-6">
-                <h1 className="text-2xl font-bold">{role.name}</h1>
+                <h1 className="text-2xl font-bold">{user.name}</h1>
 
+                <div className="mt-6">
+                    <h2>Email</h2>
+
+                    <div className="mt-3 flex flex-wrap gap-2">
+                        {user.email}
+                    </div>
+                </div>
                 <div className="mt-6">
                     <h2>Permissions</h2>
 
                     <div className="mt-3 flex flex-wrap gap-2">
-                        {role.permissions.map((permission: Permission) => (
+                        {user.permissions.map((permission: Permission) => (
                             <span
                                 key={permission.id}
                                 className="rounded bg-primary px-3 py-1 text-primary-foreground"
@@ -27,31 +35,32 @@ export default function Show({ role }: ShowProps) {
                 </div>
 
                 <div className="mt-6">
-                    <h2>Users</h2>
+                    <h2>Roles</h2>
 
                     <div className="mt-3 flex flex-wrap gap-2">
-                        {role.users.map((user: User) => (
+                        {user.roles.map((role: Role) => (
                             <span
-                                key={user.id}
+                                key={role.id}
                                 className="rounded bg-primary px-3 py-1 text-primary-foreground"
                             >
-                                {user.name}
+                                {role.name}
                             </span>
                         ))}
                     </div>
                 </div>
 
-                <Link href={roles.index()} className={'btn mx-2'}>
+                <Link href={users.index()} className={'btn mx-2'}>
                     Back
                 </Link>
             </div>
         </>
     );
 }
+
 Show.layout = {
     breadcrumbs: [
         {
-            title: 'Show Role',
+            title: 'Show User',
             href: roles.show,
         },
     ],
