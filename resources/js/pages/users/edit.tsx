@@ -27,6 +27,6 @@ export default function Edit({ user, roles, permissions, errors }: EditProps) {
 Edit.layout = {
     breadcrumbs: {
         title: 'Edit user',
-        href: users.show,
+        href: users.edit,
     },
 };

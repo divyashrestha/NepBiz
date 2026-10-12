@@ -6,6 +6,7 @@ use App\Http\Requests\User\UserRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Authorize;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -15,12 +16,8 @@ use Spatie\Permission\Models\Role;
 // todo fixed the commented section
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('permission:users.view')->only(['index', 'show']);
-        // $this->middleware('permission:users.update')->only(['edit', 'update']);
-    }
 
+    #[Authorize('users.view')]
     public function index(Request $request): Response
     {
         $search = $request->string('search')->toString();
@@ -44,6 +41,7 @@ class UserController extends Controller
         ]);
     }
 
+    #[Authorize('users.create')]
     public function create(): Response
     {
         return Inertia::render('users/create', [
@@ -52,6 +50,7 @@ class UserController extends Controller
         ]);
     }
 
+    #[Authorize('users.create')]
     public function store(UserRequest $request): RedirectResponse
     {
         $validated = $request->validated();
@@ -65,6 +64,7 @@ class UserController extends Controller
             ->with('success', "User account profile created successfully for {$user->name}.");
     }
 
+    #[Authorize('users.update')]
     public function update(UserRequest $request, User $user): RedirectResponse
     {
         $user->syncRoles(
@@ -76,6 +76,7 @@ class UserController extends Controller
             ->with('success', "Roles updated successfully for {$user->name}.");
     }
 
+    #[Authorize('users.view')]
     public function show(User $user): Response
     {
         $user->load(['roles.permissions']);
@@ -101,6 +102,7 @@ class UserController extends Controller
         ]);
     }
 
+    #[Authorize('users.update')]
     public function edit(User $user): Response
     {
         $user->load('roles');
@@ -125,6 +127,7 @@ class UserController extends Controller
     //            );
     //    }
 
+    #[Authorize('users.destroy')]
     public function destroy(User $user): RedirectResponse
     {
         $user->delete();
