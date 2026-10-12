@@ -2,12 +2,18 @@ import { Head, Link } from '@inertiajs/react';
 import { Shield, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import RoleTable from './partials/role-table';
-import { RoleIndex } from '@/types';
+import { RoleIndex, CustomFilter, UsedUnusedStats } from '@/types';
 import * as roleRoutes from '@/routes/roles';
-import RoleSearch from '@/components/roles/role-search';
 import RoleStats from '@/components/roles/role-stats';
+import CustomSearch from '@/components/custom-search';
 
-export default function Index({ roles }: { roles: RoleIndex }) {
+type RoleIndexProps = {
+    roles: RoleIndex;
+    filters: CustomFilter;
+    stats: UsedUnusedStats;
+};
+
+export default function Index({ roles, filters, stats }: RoleIndexProps) {
     return (
         <>
             <Head title="Roles" />
@@ -26,11 +32,15 @@ export default function Index({ roles }: { roles: RoleIndex }) {
                     </Link>
                 </div>
 
-                <RoleStats roles={roles.data} />
+                <RoleStats stats={stats} />
 
-                <RoleSearch />
+                <CustomSearch
+                    url={roleRoutes.index().url}
+                    placeholder="Search roles..."
+                    search={filters.search}
+                />
 
-                <RoleTable roles={roles.data} />
+                <RoleTable roles={roles} />
             </div>
         </>
     );

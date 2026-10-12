@@ -10,19 +10,30 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $search = $request->string('search')->toString();
+        $permissions = Permission::query()
+            ->withCount('roles')
+            ->when($search, fn ($query, $search) => $query->whereAny(['name'], 'like', "%{$search}%"))
+            ->latest()
+            ->paginate(10)
+            ->onEachSide(2)
+            ->withQueryString();
+
         return Inertia::render('permissions/index', [
-            'permissions' => Permission::query()
-                ->withCount('roles')
-                ->latest()
-                ->paginate(10),
+            'permissions' => $permissions,
+            'filters' => ['search' => $search],
+            'stats' => [
+                'used' => Permission::has('roles')->count(),
+                'unused' => Permission::doesntHave('roles')->count(),
+            ],
         ]);
     }
 
     public function create(): Response
     {
-        return Inertia::render('permissions/create');
+        return Inertia::render('permissions/create', []);
     }
 
     public function store(Request $request): RedirectResponse

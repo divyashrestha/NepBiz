@@ -2,7 +2,9 @@ import permissions from '@/routes/permissions';
 import { Head, Link } from '@inertiajs/react';
 import { Permission } from '@/types';
 
-export default function Show({ permission }: { permission: Permission }) {
+type ShowProps = { permission: Permission };
+
+export default function Show({ permission }: ShowProps) {
     return (
         <>
             <Head title="Show roles" />

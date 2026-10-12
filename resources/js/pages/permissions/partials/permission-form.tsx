@@ -5,11 +5,9 @@ import permissions from '@/routes/permissions';
 import { Permission } from '@/types';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
 
-export default function PermissionForm({
-    permission,
-}: {
-    permission: Permission | null;
-}) {
+type PermissionFormProps = { permission: Permission | null };
+
+export default function PermissionForm({ permission }: PermissionFormProps) {
     const { data, setData, post, put, processing, errors } = useForm({
         name: permission?.name ?? '',
     });

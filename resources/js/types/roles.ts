@@ -1,5 +1,6 @@
 import { Permission } from '@/types/permission';
 import { User } from '@/types/auth';
+import { CustomPagination } from '@/types/custom';
 
 export type Role = {
     id: number;
@@ -21,18 +22,6 @@ export type RoleWithPermissionsUsersAndCounts = Role &
     RoleWithPermissionsUsers &
     RoleWithCounts;
 
-export type RoleIndex = {
-    current_page: number;
+export type RoleIndex = CustomPagination & {
     data: RoleWithPermissionsUsersAndCounts[];
-    first_page_url: string;
-    from: number;
-    last_page: number;
-    last_page_url: string;
-    links: [];
-    next_page_url: string;
-    path: string;
-    per_page: number;
-    prev_page_url: string;
-    to: number;
-    total: number;
 };

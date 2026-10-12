@@ -1,35 +1,52 @@
 import RoleActions from '@/components/roles/role-actions';
-import { RoleWithCounts } from '@/types';
+import { RoleIndex, RoleWithCounts } from '@/types';
+import Pagination from '@/components/pagination';
 
-export default function RoleTable({ roles }: { roles: RoleWithCounts[] }) {
+type RoleTableProps = { roles: RoleIndex };
+
+export default function RoleTable({ roles }: RoleTableProps) {
     return (
-        <table className="w-full">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Permissions</th>
-                    <th>Users</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {roles.map((role: RoleWithCounts) => (
-                    <tr key={role.id}>
-                        <td className={'text-center'}>{role.name}</td>
-
-                        <td className={'text-center'}>
-                            {role.permissions_count}
-                        </td>
-
-                        <td className={'text-center'}>{role.users_count}</td>
-
-                        <td>
-                            <RoleActions role={role} />
-                        </td>
+        <div className="rounded-xl border">
+            <table className="w-full">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Permissions</th>
+                        <th>Users</th>
+                        <th>Actions</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                    {roles.data.length == 0 ? (
+                        <tr>
+                            <td className={'text-center'} colSpan={4}>
+                                {' '}
+                                No roles found
+                            </td>
+                        </tr>
+                    ) : (
+                        roles.data.map((role: RoleWithCounts) => (
+                            <tr key={role.id}>
+                                <td className={'text-center'}>{role.name}</td>
+
+                                <td className={'text-center'}>
+                                    {role.permissions_count}
+                                </td>
+
+                                <td className={'text-center'}>
+                                    {role.users_count}
+                                </td>
+
+                                <td>
+                                    <RoleActions role={role} />
+                                </td>
+                            </tr>
+                        ))
+                    )}
+                </tbody>
+            </table>
+            <Pagination links={roles.links} />
+        </div>
     );
 }
