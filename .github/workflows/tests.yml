@@ -45,15 +45,15 @@ jobs:
 
             -   name: Wait for Server
                 run: |
-                    for i in {1..5}; do
+                    for i in {1..10}; do
                         if curl -f -s http://localhost:8000/health; then
                             echo "Server is started successfully"
                             exit 0
                         fi
-                        echo "Waiting for server... ($i/5)"
+                        echo "Waiting for server... ($i/10)"
                         sleep 1
                     done
-                    echo "Error: Server failed to start within 5 seconds"
+                    echo "Error: Server failed to start within 10 seconds"
                     exit 1
 
             -   name: Run CI Checks
