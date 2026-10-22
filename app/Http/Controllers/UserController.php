@@ -16,7 +16,6 @@ use Spatie\Permission\Models\Role;
 // todo fixed the commented section
 class UserController extends Controller
 {
-
     #[Authorize('users.view')]
     public function index(Request $request): Response
     {

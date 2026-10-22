@@ -13,3 +13,7 @@ export type PermissionWithRoleCount = Permission & {
 export type PermissionIndex = CustomPagination & {
     data: PermissionWithRoleCount[];
 };
+
+export type PermissionErrors = {
+    name: string;
+};

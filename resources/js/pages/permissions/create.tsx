@@ -12,7 +12,7 @@ export default function Create() {
                     <KeyRound />
                     <h1 className="text-3xl font-bold">Add Permission</h1>
                 </div>
-                <PermissionForm permission={null} />
+                <PermissionForm permission={null} dataErrors={errors} />
             </div>
         </>
     );

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Authorize;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Permission\Models\Permission;
@@ -11,6 +12,7 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+    #[Authorize('roles.view')]
     public function index(Request $request): Response
     {
         $search = $request->string('search')->toString();
@@ -32,6 +34,7 @@ class RoleController extends Controller
         ]);
     }
 
+    #[Authorize('roles.create')]
     public function create(): Response
     {
         return Inertia::render('roles/create', [
@@ -39,6 +42,7 @@ class RoleController extends Controller
         ]);
     }
 
+    #[Authorize('roles.create')]
     public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
@@ -58,6 +62,7 @@ class RoleController extends Controller
             ->route('roles.index');
     }
 
+    #[Authorize('roles.view')]
     public function show(Role $role): Response
     {
         $role->load('permissions', 'users');
@@ -67,6 +72,7 @@ class RoleController extends Controller
         ]);
     }
 
+    #[Authorize('roles.update')]
     public function edit(Role $role): Response
     {
         return Inertia::render('roles/edit', [
@@ -75,6 +81,7 @@ class RoleController extends Controller
         ]);
     }
 
+    #[Authorize('roles.update')]
     public function update(Request $request, Role $role): RedirectResponse
     {
         $data = $request->validate([
@@ -94,6 +101,7 @@ class RoleController extends Controller
             ->route('roles.index');
     }
 
+    #[Authorize('roles.delete')]
     public function destroy(Role $role): RedirectResponse
     {
         $role->delete();

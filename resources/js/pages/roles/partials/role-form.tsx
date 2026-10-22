@@ -45,9 +45,9 @@ export default function RoleForm({ role, permissions }: RoleFormProps) {
 
     // @ts-ignore
     return (
-        <form onSubmit={submit} className="space-y-6 p-6">
+        <form onSubmit={submit} className="role-form space-y-6 p-6">
             <FormRow>
-                <FormRow.Label>Full Name</FormRow.Label>
+                <FormRow.Label>Name</FormRow.Label>
                 <FormRow.Input
                     type="text"
                     value={data.name}
