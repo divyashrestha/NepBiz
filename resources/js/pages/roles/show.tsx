@@ -1,9 +1,11 @@
 import { Permission, RoleWithPermissionsUsers, User } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import roles from '@/routes/roles';
+import {AuthorizedLink} from "@/components/ui/authorized-link";
 
-export default function Show({ role }: { role: RoleWithPermissionsUsers }) {
-    console.log(role);
+type ShowProps = { role: RoleWithPermissionsUsers };
+
+export default function Show({ role }: ShowProps) {
     return (
         <>
             <Head title="Show roles" />
@@ -26,7 +28,7 @@ export default function Show({ role }: { role: RoleWithPermissionsUsers }) {
                 </div>
 
                 <div className="mt-6">
-                    <h2>Roles</h2>
+                    <h2>Users</h2>
 
                     <div className="mt-3 flex flex-wrap gap-2">
                         {role.users.map((user: User) => (
@@ -40,9 +42,9 @@ export default function Show({ role }: { role: RoleWithPermissionsUsers }) {
                     </div>
                 </div>
 
-                <Link href={roles.index()} className={'btn mx-2'}>
+                <AuthorizedLink href={roles.index()} className={'btn mx-2'} perform="roles.view">
                     Back
-                </Link>
+                </AuthorizedLink>
             </div>
         </>
     );

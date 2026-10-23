@@ -1,17 +1,24 @@
 import PermissionTable from './partials/permission-table';
 import PermissionStats from '@/components/permissions/permission-stats';
-import PermissionSearch from '@/components/permissions/permission-search';
 import { Button } from '@/components/ui/button';
 import { Head, Link } from '@inertiajs/react';
 import { KeyRound, Plus } from 'lucide-react';
 import * as permissionRoutes from '@/routes/permissions';
-import { PermissionIndex } from '@/types';
+import { CustomFilter, PermissionIndex, UsedUnusedStats } from '@/types';
+import CustomSearch from '@/components/custom-search';
+import {AuthorizedLink} from "@/components/ui/authorized-link";
+
+type IndexPermissionProps = {
+    permissions: PermissionIndex;
+    filters: CustomFilter;
+    stats: UsedUnusedStats;
+};
 
 export default function Index({
     permissions,
-}: {
-    permissions: PermissionIndex;
-}) {
+    filters,
+    stats,
+}: IndexPermissionProps) {
     return (
         <>
             <Head title="Permissions" />
@@ -22,19 +29,23 @@ export default function Index({
                         <h1 className="text-3xl font-bold">Permissions</h1>
                     </div>
 
-                    <Link href={permissionRoutes.create()}>
+                    <AuthorizedLink perform="permissions.create" href={permissionRoutes.create()}>
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Permission
                         </Button>
-                    </Link>
+                    </AuthorizedLink>
                 </div>
 
-                <PermissionStats permissions={permissions.data} />
+                <PermissionStats stats={stats} />
 
-                <PermissionSearch />
+                <CustomSearch
+                    placeholder="Search permissions..."
+                    search={filters.search}
+                    url={permissionRoutes.index().url}
+                />
 
-                <PermissionTable permissions={permissions.data} />
+                <PermissionTable permissions={permissions} />
             </div>
         </>
     );

@@ -4,7 +4,9 @@ import { Permission } from '@/types';
 import { Head } from '@inertiajs/react';
 import permissions from '@/routes/permissions';
 
-export default function Edit({ permission }: { permission: Permission }) {
+type EditProps = { permission: Permission };
+
+export default function Edit({ permission }: EditProps) {
     return (
         <>
             <Head title="Edit permission" />
