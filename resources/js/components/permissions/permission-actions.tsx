@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Eye, Pencil, Trash2 } from 'lucide-react';
 import permissions from '@/routes/permissions';
 import { Permission } from '@/types';
+import {AuthorizedLink} from "@/components/ui/authorized-link";
+import {Can} from "@/components/ui/can";
 
 type PermissionActionProps = { permission: Permission };
 
@@ -17,21 +19,23 @@ export default function PermissionActions({
 
     return (
         <div className="flex gap-2">
-            <Link href={permissions.show(permission.id)}>
+            <AuthorizedLink perform="permissions.view" href={permissions.show(permission.id)}>
                 <Button size="icon" variant="outline">
                     <Eye />
                 </Button>
-            </Link>
+            </AuthorizedLink>
 
-            <Link href={permissions.edit(permission.id)}>
+            <AuthorizedLink perform="permissions.update" href={permissions.edit(permission.id)}>
                 <Button size="icon" variant="outline">
                     <Pencil />
                 </Button>
-            </Link>
+            </AuthorizedLink>
 
-            <Button size="icon" variant="destructive" onClick={destroy}>
-                <Trash2 />
-            </Button>
+            <Can perform='permissions.delete'>
+                <Button size="icon" variant="destructive" onClick={destroy}>
+                    <Trash2 />
+                </Button>
+            </Can>
         </div>
     );
 }

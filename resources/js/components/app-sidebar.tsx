@@ -25,27 +25,32 @@ import type { NavItem } from '@/types';
 import permissions from '@/routes/permissions';
 import roles from '@/routes/roles';
 import users from '@/routes/users';
+import {AuthorizedLink} from "@/components/ui/authorized-link";
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+        authorization: 'dashboard.view',
     },
     {
         title: 'Users',
         href: users.index(),
         icon: Users,
+        authorization: 'users.view',
     },
     {
         title: 'Role',
         href: roles.index(),
         icon: Shield,
+        authorization: 'roles.view'
     },
     {
         title: 'Permission',
         href: permissions.index(),
         icon: KeyRound,
+        authorization: 'permissions.view'
     },
 ];
 
@@ -69,9 +74,9 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
+                            <AuthorizedLink href={dashboard()} prefetch>
                                 <AppLogo />
-                            </Link>
+                            </AuthorizedLink>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

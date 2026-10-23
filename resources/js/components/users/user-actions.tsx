@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Eye, Pencil, Trash2 } from 'lucide-react';
 import users from '@/routes/users';
 import { User } from '@/types';
+import {AuthorizedLink} from "@/components/ui/authorized-link";
+import {Can} from "@/components/ui/can";
 
 export default function UserActions({ user }: { user: User }) {
     const destroy = () => {
@@ -13,21 +15,24 @@ export default function UserActions({ user }: { user: User }) {
 
     return (
         <div className="flex gap-2">
-            <Link href={users.show(user.id)}>
+            <AuthorizedLink perform="users.view" href={users.show(user.id)}>
                 <Button size="icon" variant="outline">
                     <Eye />
                 </Button>
-            </Link>
+            </AuthorizedLink>
 
-            <Link href={users.edit(user.id)}>
+            <AuthorizedLink perform="users.update" href={users.edit(user.id)}>
                 <Button size="icon" variant="outline">
                     <Pencil />
                 </Button>
-            </Link>
+            </AuthorizedLink>
 
-            <Button size="icon" variant="destructive" onClick={destroy}>
-                <Trash2 />
-            </Button>
+            <Can perform='users.delete'>
+                <Button size="icon" variant="destructive" onClick={destroy}>
+                    <Trash2 />
+                </Button>
+            </Can>
+
         </div>
     );
 }

@@ -5,6 +5,7 @@ import { Permission, PermissionErrors } from '@/types';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
 import { FormRow } from '@/components/ui/form/index.';
 import { useState } from 'react';
+import {AuthorizedLink} from "@/components/ui/authorized-link";
 
 type PermissionFormProps = {
     dataErrors: PermissionErrors;
@@ -61,9 +62,9 @@ export default function PermissionForm({
                 <Button disabled={processing}>
                     {permission ? 'Update' : 'Create'}
                 </Button>
-                <Link href={permissions.index()} className={'btn mx-2'}>
+                <AuthorizedLink perform="permissions.view" href={permissions.index()} className={'btn mx-2'}>
                     Back
-                </Link>
+                </AuthorizedLink>
             </div>
         </form>
     );

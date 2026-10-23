@@ -6,6 +6,7 @@ import { KeyRound, Plus } from 'lucide-react';
 import * as permissionRoutes from '@/routes/permissions';
 import { CustomFilter, PermissionIndex, UsedUnusedStats } from '@/types';
 import CustomSearch from '@/components/custom-search';
+import {AuthorizedLink} from "@/components/ui/authorized-link";
 
 type IndexPermissionProps = {
     permissions: PermissionIndex;
@@ -28,12 +29,12 @@ export default function Index({
                         <h1 className="text-3xl font-bold">Permissions</h1>
                     </div>
 
-                    <Link href={permissionRoutes.create()}>
+                    <AuthorizedLink perform="permissions.create" href={permissionRoutes.create()}>
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Permission
                         </Button>
-                    </Link>
+                    </AuthorizedLink>
                 </div>
 
                 <PermissionStats stats={stats} />

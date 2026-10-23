@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { FormRow } from '@/components/ui/form/index.';
 import { validateConfirmPassword, validateField } from '@/lib/form/validation';
 import { useDebounce } from '@/lib/debounce';
+import {AuthorizedLink} from "@/components/ui/authorized-link";
 
 type RoleFormProps = {
     permissions: Permission[];
@@ -247,9 +248,9 @@ export default function UserForm({
 
             <div className="flex justify-end pt-4">
                 <Button>{user ? 'Update User' : 'Create User'}</Button>
-                <Link href={users.index()} className={'btn mx-2'}>
+                <AuthorizedLink href={users.index()} className={'btn mx-2'} perform='users.view'>
                     Back
-                </Link>
+                </AuthorizedLink>
             </div>
         </form>
     );

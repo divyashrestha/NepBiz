@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
         $userRole = Role::findOrCreate('User');
 
         // Permission creation
+        Permission::findOrCreate('dashboard.view');
         $modules = ['users', 'roles', 'permissions'];
         $actions = ['view', 'create', 'update', 'delete'];
         foreach ($modules as $module) {

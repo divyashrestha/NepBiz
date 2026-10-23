@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\UserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,7 +14,6 @@ use Inertia\Response;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-// todo fixed the commented section
 class UserController extends Controller
 {
     #[Authorize('users.view')]
@@ -82,11 +82,6 @@ class UserController extends Controller
 
         $permissions = $user
             ->getAllPermissions()
-//            ->map(fn ($permission) => [
-//                'id' => $permission->id,
-//                'name' => $permission->name,
-//                'guard_name' => $permission->guard_name,
-//            ])
             ->values();
 
         return Inertia::render('users/show', [
@@ -104,27 +99,14 @@ class UserController extends Controller
     #[Authorize('users.update')]
     public function edit(User $user): Response
     {
-        $user->load('roles');
+        $user->load(['roles', 'permissions']);
 
         return Inertia::render('users/edit', [
-            'user' => $user,
+            'user' => UserResource::make($user)->resolve(),
             'roles' => Role::all('id', 'name'),
             'permissions' => Permission::all('id', 'name'),
         ]);
     }
-
-    //    public function update(UpdateUserRequest $request, User $user) {
-    //        $user->syncRoles(
-    //            $request->validated('roles')
-    //        );
-    //
-    //        return redirect()
-    //            ->route('users.show', $user)
-    //            ->with(
-    //                'success',
-    //                "Roles updated successfully for {$user->name}."
-    //            );
-    //    }
 
     #[Authorize('users.destroy')]
     public function destroy(User $user): RedirectResponse
