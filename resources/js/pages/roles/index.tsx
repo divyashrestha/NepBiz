@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Shield, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import RoleTable from './partials/role-table';
@@ -6,7 +6,7 @@ import { RoleIndex, CustomFilter, UsedUnusedStats } from '@/types';
 import * as roleRoutes from '@/routes/roles';
 import RoleStats from '@/components/roles/role-stats';
 import CustomSearch from '@/components/custom-search';
-import {AuthorizedLink} from "@/components/ui/authorized-link";
+import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 type RoleIndexProps = {
     roles: RoleIndex;
@@ -25,7 +25,10 @@ export default function Index({ roles, filters, stats }: RoleIndexProps) {
                         <h1 className="text-3xl font-bold">Roles</h1>
                     </div>
 
-                    <AuthorizedLink perform="roles.create" href={roleRoutes.create()}>
+                    <AuthorizedLink
+                        perform="roles.create"
+                        href={roleRoutes.create()}
+                    >
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Role

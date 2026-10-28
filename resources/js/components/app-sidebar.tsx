@@ -1,4 +1,3 @@
-import { Link } from '@inertiajs/react';
 import {
     BookOpen,
     FolderGit2,
@@ -25,7 +24,7 @@ import type { NavItem } from '@/types';
 import permissions from '@/routes/permissions';
 import roles from '@/routes/roles';
 import users from '@/routes/users';
-import {AuthorizedLink} from "@/components/ui/authorized-link";
+import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 const mainNavItems: NavItem[] = [
     {
@@ -44,13 +43,13 @@ const mainNavItems: NavItem[] = [
         title: 'Role',
         href: roles.index(),
         icon: Shield,
-        authorization: 'roles.view'
+        authorization: 'roles.view',
     },
     {
         title: 'Permission',
         href: permissions.index(),
         icon: KeyRound,
-        authorization: 'permissions.view'
+        authorization: 'permissions.view',
     },
 ];
 

@@ -1,10 +1,10 @@
-import { Link, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { CheckboxOption, Permission, RoleWithPermissionsUsers } from '@/types';
 import roles from '@/routes/roles';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
 import { FormRow } from '@/components/ui/form/index.';
-import {AuthorizedLink} from "@/components/ui/authorized-link";
+import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 type RoleFormProps = {
     role: RoleWithPermissionsUsers | undefined;
@@ -70,7 +70,11 @@ export default function RoleForm({ role, permissions }: RoleFormProps) {
 
             <div className="flex justify-end pt-4">
                 <Button>{role ? 'Update Role' : 'Create Role'}</Button>
-                <AuthorizedLink perform="roles.view" href={roles.index()} className={'btn mx-2'}>
+                <AuthorizedLink
+                    perform="roles.view"
+                    href={roles.index()}
+                    className={'btn mx-2'}
+                >
                     Back
                 </AuthorizedLink>
             </div>

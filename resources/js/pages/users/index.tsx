@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Shield, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { UserCustomStats, UserFilter, UserIndex } from '@/types';
@@ -6,7 +6,7 @@ import * as userRoutes from '@/routes/users';
 import UserTable from '@/pages/users/partials/user-table';
 import CustomSearch from '@/components/custom-search';
 import UserStats from '@/components/users/user-stats';
-import {AuthorizedLink} from "@/components/ui/authorized-link";
+import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 type UserIndexProps = {
     users: UserIndex;
@@ -25,7 +25,10 @@ export default function Index({ users, filters, stats }: UserIndexProps) {
                         <h1 className="text-3xl font-bold">Users</h1>
                     </div>
 
-                    <AuthorizedLink href={userRoutes.create()} perform="users.create">
+                    <AuthorizedLink
+                        href={userRoutes.create()}
+                        perform="users.create"
+                    >
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add User

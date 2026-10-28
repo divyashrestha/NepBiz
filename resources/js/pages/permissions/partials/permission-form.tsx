@@ -1,11 +1,11 @@
-import { Link, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import permissions from '@/routes/permissions';
 import { Permission, PermissionErrors } from '@/types';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
 import { FormRow } from '@/components/ui/form/index.';
 import { useState } from 'react';
-import {AuthorizedLink} from "@/components/ui/authorized-link";
+import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 type PermissionFormProps = {
     dataErrors: PermissionErrors;
@@ -62,7 +62,11 @@ export default function PermissionForm({
                 <Button disabled={processing}>
                     {permission ? 'Update' : 'Create'}
                 </Button>
-                <AuthorizedLink perform="permissions.view" href={permissions.index()} className={'btn mx-2'}>
+                <AuthorizedLink
+                    perform="permissions.view"
+                    href={permissions.index()}
+                    className={'btn mx-2'}
+                >
                     Back
                 </AuthorizedLink>
             </div>

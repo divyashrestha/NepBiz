@@ -1,7 +1,7 @@
 import { Permission, RoleWithPermissionsUsers, User } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import roles from '@/routes/roles';
-import {AuthorizedLink} from "@/components/ui/authorized-link";
+import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 type ShowProps = { role: RoleWithPermissionsUsers };
 
@@ -42,7 +42,11 @@ export default function Show({ role }: ShowProps) {
                     </div>
                 </div>
 
-                <AuthorizedLink href={roles.index()} className={'btn mx-2'} perform="roles.view">
+                <AuthorizedLink
+                    href={roles.index()}
+                    className={'btn mx-2'}
+                    perform="roles.view"
+                >
                     Back
                 </AuthorizedLink>
             </div>

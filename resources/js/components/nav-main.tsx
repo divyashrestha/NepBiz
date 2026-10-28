@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/sidebar';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import type { NavItem } from '@/types';
-import {Can} from "@/components/ui/can";
+import { Can } from '@/components/ui/can';
 
 export function NavMain({ items }: { items: NavItem[] }) {
     const { isCurrentUrl } = useCurrentUrl();
@@ -31,7 +31,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
-                     </Can>
+                    </Can>
                 ))}
             </SidebarMenu>
         </SidebarGroup>

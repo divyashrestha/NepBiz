@@ -1,4 +1,4 @@
-import { Link, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { CheckboxOption, Permission, Role, User, UserErrors } from '@/types';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { FormRow } from '@/components/ui/form/index.';
 import { validateConfirmPassword, validateField } from '@/lib/form/validation';
 import { useDebounce } from '@/lib/debounce';
-import {AuthorizedLink} from "@/components/ui/authorized-link";
+import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 type RoleFormProps = {
     permissions: Permission[];
@@ -248,7 +248,11 @@ export default function UserForm({
 
             <div className="flex justify-end pt-4">
                 <Button>{user ? 'Update User' : 'Create User'}</Button>
-                <AuthorizedLink href={users.index()} className={'btn mx-2'} perform='users.view'>
+                <AuthorizedLink
+                    href={users.index()}
+                    className={'btn mx-2'}
+                    perform="users.view"
+                >
                     Back
                 </AuthorizedLink>
             </div>
