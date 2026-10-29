@@ -22,7 +22,15 @@ class RoleController extends Controller
             ->latest()
             ->paginate(10)
             ->onEachSide(2)
-            ->withQueryString();
+            ->withQueryString()
+            ->through(function ($role) {
+                if ($role->name == 'Super Admin') {
+                    /** @phpstan-ignore-line */
+                    $role->permissions_count = Permission::count();
+                }
+
+                return $role;
+            });
 
         return Inertia::render('roles/index', [
             'roles' => $roles,
@@ -68,7 +76,13 @@ class RoleController extends Controller
         $role->load('permissions', 'users');
 
         return Inertia::render('roles/show', [
-            'role' => $role,
+            'role' => [
+                'id' => $role->id,
+                'name' => $role->name,
+                'guard_name' => $role->guard_name,
+                'permissions' => ($role->name == 'Super Admin') ? Permission::all(['id', 'name']) : $role->permissions,
+                'users' => $role->users,
+            ],
         ]);
     }
 

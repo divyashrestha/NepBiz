@@ -3,6 +3,8 @@ import roles from '@/routes/roles';
 import { Head } from '@inertiajs/react';
 import users from '@/routes/users';
 import { AuthorizedLink } from '@/components/ui/authorized-link';
+import { ShowPage } from '@/components/ui/show';
+import { LucideMail, KeyRound, UserCircle } from 'lucide-react';
 
 type ShowProps = { user: User & { permissions: Permission[]; roles: Role[] } };
 
@@ -10,55 +12,65 @@ export default function Show({ user }: ShowProps) {
     return (
         <>
             <Head title={'Show user'}></Head>
-            <div className="p-6">
-                <h1 className="text-2xl font-bold">{user.name}</h1>
-
-                <div className="mt-6">
-                    <h2>Email</h2>
-
-                    <div className="mt-3 flex flex-wrap gap-2">
-                        {user.email}
+            <ShowPage>
+                <ShowPage.Header>
+                    <div className="space-y-1">
+                        <AuthorizedLink
+                            href={users.index()}
+                            perform="users.view"
+                            className={
+                                'inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100'
+                            }
+                        >
+                            <ShowPage.BackButton>
+                                Back to Users
+                            </ShowPage.BackButton>
+                        </AuthorizedLink>
+                        <ShowPage.HeaderTitle>
+                            User Details
+                        </ShowPage.HeaderTitle>
                     </div>
-                </div>
-
-                <div className="mt-6">
-                    <h2>Roles</h2>
-
-                    <div className="mt-3 flex flex-wrap gap-2">
-                        {user.roles.map((role: Role) => (
-                            <span
-                                key={role.id}
-                                className="rounded bg-primary px-3 py-1 text-primary-foreground"
-                            >
-                                {role.name}
-                            </span>
-                        ))}
+                    <div>
+                        <AuthorizedLink
+                            perform="users.update"
+                            href={users.edit(user.id).url}
+                        >
+                            <ShowPage.EditButton>Edit User</ShowPage.EditButton>
+                        </AuthorizedLink>
                     </div>
-                </div>
-
-                <div className="mt-6">
-                    <h2>Permissions</h2>
-
-                    <div className="mt-3 flex flex-wrap gap-2">
-                        {user.permissions.map((permission: Permission) => (
-                            <span
-                                key={permission.id}
-                                className="rounded bg-primary px-3 py-1 text-primary-foreground"
-                            >
-                                {permission.name}
-                            </span>
-                        ))}
-                    </div>
-                </div>
-
-                <AuthorizedLink
-                    href={users.index()}
-                    className={'btn mx-2'}
-                    perform="users.view"
-                >
-                    Back
-                </AuthorizedLink>
-            </div>
+                </ShowPage.Header>
+                <ShowPage.Grid cols={2}>
+                    <ShowPage.Card
+                        icon={<UserCircle className="h-5 w-5" />}
+                        iconVariant="zinc"
+                    >
+                        <ShowPage.CardBody title="Name" values={user.name} />
+                    </ShowPage.Card>
+                    <ShowPage.Card
+                        icon={<LucideMail className="h-5 w-5" />}
+                        iconVariant="zinc"
+                    >
+                        <ShowPage.CardBody title="Email" values={user.email} />
+                    </ShowPage.Card>
+                    <ShowPage.Card
+                        icon={<KeyRound className="h-5 w-5" />}
+                        iconVariant="zinc"
+                    >
+                        <ShowPage.CardBody title="Roles" values={user.roles} />
+                    </ShowPage.Card>
+                </ShowPage.Grid>
+                <ShowPage.Grid>
+                    <ShowPage.Card
+                        icon={<KeyRound className="h-5 w-5" />}
+                        iconVariant="zinc"
+                    >
+                        <ShowPage.CardBody
+                            title="Permissions"
+                            values={user.permissions}
+                        />
+                    </ShowPage.Card>
+                </ShowPage.Grid>
+            </ShowPage>
         </>
     );
 }

@@ -80,9 +80,9 @@ class UserController extends Controller
     {
         $user->load(['roles.permissions']);
 
-        $permissions = $user
-            ->getAllPermissions()
-            ->values();
+        $isSuperAdmin = $user->roles->contains('name', 'Super Admin');
+
+        $permissions = $isSuperAdmin ? Permission::all() : $user->getAllPermissions()->values();
 
         return Inertia::render('users/show', [
             'user' => [
