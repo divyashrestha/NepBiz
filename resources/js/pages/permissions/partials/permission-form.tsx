@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import permissions from '@/routes/permissions';
 import { Permission, PermissionErrors } from '@/types';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
-import { FormRow } from '@/components/ui/form/index.';
-import { useState } from 'react';
+import {Form, FormRow} from '@/components/ui/form/index.';
+import {useEffect, useState} from 'react';
 import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 type PermissionFormProps = {
@@ -16,7 +16,6 @@ export default function PermissionForm({
     dataErrors,
     permission,
 }: PermissionFormProps) {
-    console.log(dataErrors);
     const { data, setData, post, put, processing } = useForm({
         name: permission?.name ?? '',
     });
@@ -24,6 +23,12 @@ export default function PermissionForm({
     const [errors, setErrors] = useState<Record<string, string>>({
         name: dataErrors?.name ?? '',
     });
+
+    useEffect(() => {
+        if (dataErrors && Object.keys(dataErrors).length > 0) {
+            setErrors(dataErrors as unknown as Record<string, string>);
+        }
+    }, [dataErrors]);
 
     const handleFieldChange = (key: string, value: string) => {
         setData(key as any, value);
@@ -46,7 +51,7 @@ export default function PermissionForm({
     };
 
     return (
-        <form onSubmit={submit} className="max-w-xl space-y-4">
+        <Form name="permission" onSubmit={submit}>
             <FormRow error={errors.name} id="name">
                 <FormRow.Label>Name</FormRow.Label>
                 <FormRow.Input
@@ -70,6 +75,6 @@ export default function PermissionForm({
                     Back
                 </AuthorizedLink>
             </div>
-        </form>
+        </Form>
     );
 }

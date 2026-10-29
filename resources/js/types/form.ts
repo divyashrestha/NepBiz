@@ -1,4 +1,9 @@
-import * as React from 'react';
+import {ChangeEvent, FormHTMLAttributes, ReactNode} from 'react';
+
+export type FormProps = FormHTMLAttributes<HTMLFormElement> & {
+    name: string
+    children: ReactNode
+}
 
 export type CheckboxOption = {
     id: string | number;
@@ -14,12 +19,12 @@ export type FormRowProps = {
     id?: string;
     error?: string;
     className?: string;
-    children: React.ReactNode;
+    children: ReactNode;
 };
 
 export type FormRowLabelProps = {
     className?: string;
-    children: React.ReactNode;
+    children: ReactNode;
 };
 
 export type FormCheckboxGroupProps = {
@@ -27,7 +32,7 @@ export type FormCheckboxGroupProps = {
     selectedValues: (string | number)[];
     onChange: (
         option: CheckboxOption,
-        event: React.ChangeEvent<HTMLInputElement>,
+        event: ChangeEvent<HTMLInputElement>,
     ) => void;
     gridClassName?: string;
 };

@@ -3,12 +3,19 @@ import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {Span} from "@/components/ui/span";
-import {FormCheckboxGroupProps, FormContextType, FormRowLabelProps, FormRowProps} from "@/types";
+import {FormCheckboxGroupProps, FormContextType, FormProps, FormRowLabelProps, FormRowProps} from "@/types";
 import {useId} from "react";
 
 // ============================================================================
 // Shared Base Types
 // ============================================================================
+
+const Form=({name, children, className, ...props}: FormProps)=>{
+    return (
+        <form className={cn(`form-${name}`,"mx-w-xl space-y-6 p-6", className)} {...props}>
+            {children}
+        </form>)
+}
 
 const FormContext = React.createContext<FormContextType | null>(null)
 
@@ -152,4 +159,4 @@ const FormRowCheckboxGroup: React.FC<FormCheckboxGroupProps> = ({
 FormRow.CheckboxGroup = FormRowCheckboxGroup
 FormRow.CheckboxGroup.displayName = "FormRow.CheckboxGroup"
 
-export {FormRow};
+export {Form, FormRow};

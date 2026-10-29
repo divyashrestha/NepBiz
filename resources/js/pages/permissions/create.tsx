@@ -2,8 +2,11 @@ import PermissionForm from './partials/permission-form';
 import { KeyRound } from 'lucide-react';
 import { Head } from '@inertiajs/react';
 import permissions from '@/routes/permissions';
+import {PermissionErrors} from "@/types";
 
-export default function Create() {
+type CreateProps = { errors: PermissionErrors };
+
+export default function Create({errors}:CreateProps) {
     return (
         <>
             <Head title="Create permission" />

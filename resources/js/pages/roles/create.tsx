@@ -1,15 +1,15 @@
 import RoleForm from './partials/role-form';
 import { Head } from '@inertiajs/react';
 import roles from '@/routes/roles';
-import { Permission } from '@/types';
+import {Permission, RoleErrors} from '@/types';
 
-type CreateProps = { permissions: Permission[] };
+type CreateProps = { permissions: Permission[], errors: RoleErrors };
 
-export default function Create({ permissions }: CreateProps) {
+export default function Create({ permissions, errors }: CreateProps) {
     return (
         <>
             <Head title="Create roles" />
-            <RoleForm permissions={permissions} role={undefined} />;
+            <RoleForm permissions={permissions} role={undefined} dataErrors={errors} />;
         </>
     );
 }

@@ -1,21 +1,36 @@
 import { useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
-import { CheckboxOption, Permission, RoleWithPermissionsUsers } from '@/types';
+import {CheckboxOption, Permission, RoleErrors, RoleWithPermissionsUsers} from '@/types';
 import roles from '@/routes/roles';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
-import { FormRow } from '@/components/ui/form/index.';
+import {Form, FormRow} from '@/components/ui/form/index.';
 import { AuthorizedLink } from '@/components/ui/authorized-link';
+import {useEffect, useState} from "react";
 
 type RoleFormProps = {
     role: RoleWithPermissionsUsers | undefined;
     permissions: Permission[];
+    dataErrors: RoleErrors;
 };
 
-export default function RoleForm({ role, permissions }: RoleFormProps) {
+export default function RoleForm({ role, permissions, dataErrors }: RoleFormProps) {
     const { data, setData, post, put } = useForm({
         name: role?.name ?? '',
         permissions: role?.permissions?.map((p) => p.id) ?? [],
     });
+
+    // Initialise validation errors
+    const [errors, setErrors] = useState<Record<string, string>>({
+        name: dataErrors?.name ?? '',
+        permissions: dataErrors?.permissions ?? '',
+    });
+
+    useEffect(() => {
+        if (dataErrors && Object.keys(dataErrors).length > 0) {
+            setErrors(dataErrors as unknown as Record<string, string>);
+        }
+    }, [dataErrors]);
+
 
     const submit = (e: CustomSubmitEvent) => {
         e.preventDefault();
@@ -44,22 +59,31 @@ export default function RoleForm({ role, permissions }: RoleFormProps) {
         });
     };
 
+    const handleFieldChange = (key: string, value: string) => {
+        setData(key as any, value);
+
+        // Clear out active validation flags instantly as the user types a correction
+        if (errors[key]) {
+            setErrors((prev) => ({ ...prev, [key]: '' }));
+        }
+    };
+
     // @ts-ignore
     return (
-        <form onSubmit={submit} className="role-form space-y-6 p-6">
-            <FormRow>
+        <Form name="role" onSubmit={submit}>
+            <FormRow error={errors.name} id="name">
                 <FormRow.Label>Name</FormRow.Label>
                 <FormRow.Input
                     type="text"
                     value={data.name}
                     placeholder="Enter full name"
                     onChange={(e: CustomChangeEvent) =>
-                        setData('name', e.target.value)
+                        handleFieldChange('name', e.target.value)
                     }
                 />
             </FormRow>
 
-            <FormRow>
+            <FormRow error={errors.permissions} id="permissions">
                 <FormRow.Label>Permissions</FormRow.Label>
                 <FormRow.CheckboxGroup
                     options={permissions}
@@ -78,6 +102,6 @@ export default function RoleForm({ role, permissions }: RoleFormProps) {
                     Back
                 </AuthorizedLink>
             </div>
-        </form>
+        </Form>
     );
 }

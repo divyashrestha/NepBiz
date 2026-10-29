@@ -25,3 +25,8 @@ export type RoleWithPermissionsUsersAndCounts = Role &
 export type RoleIndex = CustomPagination & {
     data: RoleWithPermissionsUsersAndCounts[];
 };
+
+export type RoleErrors = {
+    name: string;
+    permissions: string;
+}

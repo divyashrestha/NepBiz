@@ -4,7 +4,7 @@ import { CheckboxOption, Permission, Role, User, UserErrors } from '@/types';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
 import users from '@/routes/users';
 import { useEffect, useState } from 'react';
-import { FormRow } from '@/components/ui/form/index.';
+import {Form, FormRow} from '@/components/ui/form/index.';
 import { validateConfirmPassword, validateField } from '@/lib/form/validation';
 import { useDebounce } from '@/lib/debounce';
 import { AuthorizedLink } from '@/components/ui/authorized-link';
@@ -179,7 +179,7 @@ export default function UserForm({
     };
 
     return (
-        <form onSubmit={submit} className="users-form space-y-6 p-6">
+        <Form name="user" onSubmit={submit}>
             <FormRow error={errors.name} id="name">
                 <FormRow.Label>Full Name</FormRow.Label>
                 <FormRow.Input
@@ -256,6 +256,6 @@ export default function UserForm({
                     Back
                 </AuthorizedLink>
             </div>
-        </form>
+        </Form>
     );
 }
