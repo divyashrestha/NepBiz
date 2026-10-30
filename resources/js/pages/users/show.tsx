@@ -1,20 +1,18 @@
 import { Permission, Role, User } from '@/types';
 import roles from '@/routes/roles';
-import { Head } from '@inertiajs/react';
 import users from '@/routes/users';
-import { AuthorizedLink } from '@/components/ui/authorized-link';
-import { ShowPage } from '@/components/ui/show';
+import { AuthorizedLink } from '@/components/ui/authorized-link';;
 import { LucideMail, KeyRound, UserCircle } from 'lucide-react';
+import {HtmlTag} from "@/components/ui/html-tag";
+import {ShowPage} from "@/components/ui/pages/ShowPage";
 
 type ShowProps = { user: User & { permissions: Permission[]; roles: Role[] } };
 
 export default function Show({ user }: ShowProps) {
     return (
-        <>
-            <Head title={'Show user'}></Head>
-            <ShowPage>
+            <ShowPage title='Show user'>
                 <ShowPage.Header>
-                    <div className="space-y-1">
+                    <HtmlTag.Div className="space-y-1">
                         <AuthorizedLink
                             href={users.index()}
                             perform="users.view"
@@ -29,15 +27,15 @@ export default function Show({ user }: ShowProps) {
                         <ShowPage.HeaderTitle>
                             User Details
                         </ShowPage.HeaderTitle>
-                    </div>
-                    <div>
+                    </HtmlTag.Div>
+                    <HtmlTag.Div>
                         <AuthorizedLink
                             perform="users.update"
                             href={users.edit(user.id).url}
                         >
                             <ShowPage.EditButton>Edit User</ShowPage.EditButton>
                         </AuthorizedLink>
-                    </div>
+                    </HtmlTag.Div>
                 </ShowPage.Header>
                 <ShowPage.Grid cols={2}>
                     <ShowPage.Card
@@ -71,7 +69,6 @@ export default function Show({ user }: ShowProps) {
                     </ShowPage.Card>
                 </ShowPage.Grid>
             </ShowPage>
-        </>
     );
 }
 

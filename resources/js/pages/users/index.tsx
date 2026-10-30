@@ -1,10 +1,10 @@
-import { Head } from '@inertiajs/react';
 import { UserCustomStats, UserFilter, UserIndex } from '@/types';
 import * as userRoutes from '@/routes/users';
 import UserTable from '@/pages/users/partials/user-table';
 import CustomSearch from '@/components/custom-search';
 import UserStats from '@/components/users/user-stats';
-import { IndexCreateButton, IndexTitle } from '@/components/ui/index';
+import {IndexPage} from "@/components/ui/pages/IndexPage";
+import {HtmlTag} from "@/components/ui/html-tag";
 
 type UserIndexProps = {
     users: UserIndex;
@@ -14,16 +14,15 @@ type UserIndexProps = {
 
 export default function Index({ users, filters, stats }: UserIndexProps) {
     return (
-        <>
-            <Head title="Users" />
-            <div className="space-y-6 p-6">
-                <div className="flex items-center justify-between">
-                    <IndexTitle>Users</IndexTitle>
+        <IndexPage title="Users">
+            <HtmlTag.Div className="space-y-6 p-6">
+                <HtmlTag.Div className="flex items-center justify-between">
+                    <IndexPage.Header>Users</IndexPage.Header>
 
-                    <IndexCreateButton url={userRoutes.create().url}>
+                    <IndexPage.CreateButton url={userRoutes.create().url}>
                         Add User
-                    </IndexCreateButton>
-                </div>
+                    </IndexPage.CreateButton>
+                </HtmlTag.Div>
 
                 <UserStats stats={stats} />
 
@@ -34,8 +33,8 @@ export default function Index({ users, filters, stats }: UserIndexProps) {
                 />
 
                 <UserTable users={users} />
-            </div>
-        </>
+            </HtmlTag.Div>
+        </IndexPage>
     );
 }
 

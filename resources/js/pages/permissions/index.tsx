@@ -1,10 +1,10 @@
 import PermissionTable from './partials/permission-table';
 import PermissionStats from '@/components/permissions/permission-stats';
-import { Head } from '@inertiajs/react';
 import * as permissionRoutes from '@/routes/permissions';
 import { CustomFilter, PermissionIndex, UsedUnusedStats } from '@/types';
 import CustomSearch from '@/components/custom-search';
-import { IndexCreateButton, IndexTitle } from '@/components/ui/index/';
+import {IndexPage} from "@/components/ui/pages/IndexPage";
+import {HtmlTag} from "@/components/ui/html-tag";
 
 type IndexPermissionProps = {
     permissions: PermissionIndex;
@@ -18,16 +18,15 @@ export default function Index({
     stats,
 }: IndexPermissionProps) {
     return (
-        <>
-            <Head title="Permissions" />
-            <div className="space-y-6 p-6">
-                <div className="flex items-center justify-between">
-                    <IndexTitle>Permissions</IndexTitle>
+        <IndexPage title="Permissions">
+            <HtmlTag.Div className="space-y-6 p-6">
+                <HtmlTag.Div className="flex items-center justify-between">
+                    <IndexPage.Header>Permissions</IndexPage.Header>
 
-                    <IndexCreateButton url={permissionRoutes.create().url}>
+                    <IndexPage.CreateButton url={permissionRoutes.create().url}>
                         Add Permission
-                    </IndexCreateButton>
-                </div>
+                    </IndexPage.CreateButton>
+                </HtmlTag.Div>
 
                 <PermissionStats stats={stats} />
 
@@ -38,8 +37,8 @@ export default function Index({
                 />
 
                 <PermissionTable permissions={permissions} />
-            </div>
-        </>
+            </HtmlTag.Div>
+        </IndexPage>
     );
 }
 Index.layout = {

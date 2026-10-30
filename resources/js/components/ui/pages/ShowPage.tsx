@@ -5,12 +5,18 @@ import {
 } from "@/types";
 import {Button} from "@/components/ui/button";
 import {ArrowLeft, Pencil} from "lucide-react";
+import {PageLayout} from "@/components/ui/pages/index";
 
-export const ShowPage = ({ className, children, ...props }: ShowProps) => (
-    <div className={cn("p-6 space-y-6 text-zinc-900 dark:text-zinc-100 transition-colors duration-200", className)} {...props}>
-        {children}
-    </div>
-);
+export const ShowPage = ({ title, className, children, ...props }: ShowProps) => {
+    return(
+        <PageLayout title={title}>
+            <div
+                className={cn("p-6 space-y-6 text-zinc-900 dark:text-zinc-100 transition-colors duration-200", className)} {...props}>
+                {children}
+            </div>
+        </PageLayout>
+    )
+};
 
 ShowPage.Header = ({ className, children, ...props }: ShowHeaderProps) => (
     <div className={cn("flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b border-zinc-100 dark:border-zinc-800", className)} {...props}>
