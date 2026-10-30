@@ -1,20 +1,16 @@
 import PermissionForm from './partials/permission-form';
-import { KeyRound } from 'lucide-react';
-import { Head } from '@inertiajs/react';
 import permissions from '@/routes/permissions';
+import {PermissionErrors} from "@/types";
+import {CreatePage} from "@/components/ui/pages/CreatePage";
+import {KeyRound} from "lucide-react";
 
-export default function Create() {
+type CreateProps = { errors: PermissionErrors };
+
+export default function Create({errors}:CreateProps) {
     return (
-        <>
-            <Head title="Create permission" />
-            <div className="p-6">
-                <div className="mb-2 flex items-center gap-2">
-                    <KeyRound />
-                    <h1 className="text-3xl font-bold">Add Permission</h1>
-                </div>
-                <PermissionForm permission={null} />
-            </div>
-        </>
+        <CreatePage title="Create permission" icon={<KeyRound />}>
+            <PermissionForm permission={null} dataErrors={errors} />
+        </CreatePage>
     );
 }
 Create.layout = {

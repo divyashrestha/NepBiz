@@ -1,20 +1,20 @@
 import RoleForm from './partials/role-form';
-import { Permission, RoleWithPermissionsUsers } from '@/types';
-import { Head } from '@inertiajs/react';
+import {Permission, RoleErrors, RoleWithPermissionsUsers} from '@/types';
 import roles from '@/routes/roles';
+import {Shield} from "lucide-react";
+import {EditPage} from "@/components/ui/pages/EditPage";
 
-export default function Edit({
-    role,
-    permissions,
-}: {
+type EditProps = {
     role: RoleWithPermissionsUsers;
     permissions: Permission[];
-}) {
+    errors: RoleErrors;
+};
+
+export default function Edit({ role, permissions, errors }: EditProps) {
     return (
-        <>
-            <Head title="Edit role" />
-            <RoleForm role={role} permissions={permissions} />
-        </>
+        <EditPage title='Edit role' icon={<Shield />}>
+            <RoleForm role={role} permissions={permissions} dataErrors={errors} />
+        </EditPage>
     );
 }
 Edit.layout = {

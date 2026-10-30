@@ -1,42 +1,44 @@
 import PermissionTable from './partials/permission-table';
 import PermissionStats from '@/components/permissions/permission-stats';
-import PermissionSearch from '@/components/permissions/permission-search';
-import { Button } from '@/components/ui/button';
-import { Head, Link } from '@inertiajs/react';
-import { KeyRound, Plus } from 'lucide-react';
 import * as permissionRoutes from '@/routes/permissions';
-import { PermissionIndex } from '@/types';
+import { CustomFilter, PermissionIndex, UsedUnusedStats } from '@/types';
+import CustomSearch from '@/components/custom-search';
+import {IndexPage} from "@/components/ui/pages/IndexPage";
+import {HtmlTag} from "@/components/ui/html-tag";
+
+type IndexPermissionProps = {
+    permissions: PermissionIndex;
+    filters: CustomFilter;
+    stats: UsedUnusedStats;
+};
 
 export default function Index({
     permissions,
-}: {
-    permissions: PermissionIndex;
-}) {
+    filters,
+    stats,
+}: IndexPermissionProps) {
     return (
-        <>
-            <Head title="Permissions" />
-            <div className="space-y-6 p-6">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <KeyRound />
-                        <h1 className="text-3xl font-bold">Permissions</h1>
-                    </div>
+        <IndexPage title="Permissions">
+            <HtmlTag.Div className="space-y-6 p-6">
+                <HtmlTag.Div className="flex items-center justify-between">
+                    <IndexPage.Header>Permissions</IndexPage.Header>
 
-                    <Link href={permissionRoutes.create()}>
-                        <Button>
-                            <Plus className="mr-2 h-4 w-4" />
-                            Add Permission
-                        </Button>
-                    </Link>
-                </div>
+                    <IndexPage.CreateButton url={permissionRoutes.create().url}>
+                        Add Permission
+                    </IndexPage.CreateButton>
+                </HtmlTag.Div>
 
-                <PermissionStats permissions={permissions.data} />
+                <PermissionStats stats={stats} />
 
-                <PermissionSearch />
+                <CustomSearch
+                    placeholder="Search permissions..."
+                    search={filters.search}
+                    url={permissionRoutes.index().url}
+                />
 
-                <PermissionTable permissions={permissions.data} />
-            </div>
-        </>
+                <PermissionTable permissions={permissions} />
+            </HtmlTag.Div>
+        </IndexPage>
     );
 }
 Index.layout = {

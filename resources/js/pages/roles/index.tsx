@@ -1,38 +1,39 @@
-import { Head, Link } from '@inertiajs/react';
-import { Shield, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import RoleTable from './partials/role-table';
-import { RoleIndex } from '@/types';
+import { RoleIndex, CustomFilter, UsedUnusedStats } from '@/types';
 import * as roleRoutes from '@/routes/roles';
-import RoleSearch from '@/components/roles/role-search';
 import RoleStats from '@/components/roles/role-stats';
+import CustomSearch from '@/components/custom-search';
+import {IndexPage} from "@/components/ui/pages/IndexPage";
+import {HtmlTag} from "@/components/ui/html-tag";
 
-export default function Index({ roles }: { roles: RoleIndex }) {
+type RoleIndexProps = {
+    roles: RoleIndex;
+    filters: CustomFilter;
+    stats: UsedUnusedStats;
+};
+
+export default function Index({ roles, filters, stats }: RoleIndexProps) {
     return (
-        <>
-            <Head title="Roles" />
-            <div className="space-y-6 p-6">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <Shield />
-                        <h1 className="text-3xl font-bold">Roles</h1>
-                    </div>
+        <IndexPage title="Roles">
+            <HtmlTag.Div className="space-y-6 p-6">
+                <HtmlTag.Div className="flex items-center justify-between">
+                    <IndexPage.Header>Roles</IndexPage.Header>
+                    <IndexPage.CreateButton url={roleRoutes.create().url}>
+                        Add Role
+                    </IndexPage.CreateButton>
+                </HtmlTag.Div>
 
-                    <Link href={roleRoutes.create()}>
-                        <Button>
-                            <Plus className="mr-2 h-4 w-4" />
-                            Add Role
-                        </Button>
-                    </Link>
-                </div>
+                <RoleStats stats={stats} />
 
-                <RoleStats roles={roles.data} />
+                <CustomSearch
+                    url={roleRoutes.index().url}
+                    placeholder="Search roles..."
+                    search={filters.search}
+                />
 
-                <RoleSearch />
-
-                <RoleTable roles={roles.data} />
-            </div>
-        </>
+                <RoleTable roles={roles} />
+            </HtmlTag.Div>
+        </IndexPage>
     );
 }
 
