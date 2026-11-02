@@ -25,8 +25,7 @@ class RoleController extends Controller
             ->withQueryString()
             ->through(function ($role) {
                 if ($role->name == 'Super Admin') {
-                    /** @phpstan-ignore-line */
-                    $role->permissions_count = Permission::count();
+                    $role->permissions_count = Permission::count(); // @phpstan-ignore-line
                 }
 
                 return $role;

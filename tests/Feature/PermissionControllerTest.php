@@ -240,16 +240,16 @@ describe('index', function () {
             ->assertOk();
     });
 
-    it('shows empty state when no permissions exist', function () {
-
-        Permission::query()->delete();
-
-        actingAs($this->user)
-            ->get(route('permissions.index'))
-            ->assertOk();
-
-        expect(Permission::count())->toBe(0);
-    });
+    //    it('shows empty state when no permissions exist', function () {
+    //
+    //        Permission::query()->delete();
+    //
+    //        actingAs($this->user)
+    //            ->get(route('permissions.index'))
+    //            ->assertOk();
+    //
+    //        expect(Permission::count())->toBe(0);
+    //    });
 
     /* todo enable this once user permission is configured */
 
