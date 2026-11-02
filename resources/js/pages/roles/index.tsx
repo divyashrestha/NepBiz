@@ -1,7 +1,6 @@
 import RoleTable from './partials/role-table';
 import { RoleIndex, CustomFilter, UsedUnusedStats } from '@/types';
 import * as roleRoutes from '@/routes/roles';
-import RoleStats from '@/components/roles/role-stats';
 import CustomSearch from '@/components/custom-search';
 import {IndexPage} from "@/components/ui/pages/IndexPage";
 import {HtmlTag} from "@/components/ui/html-tag";
@@ -13,6 +12,12 @@ type RoleIndexProps = {
 };
 
 export default function Index({ roles, filters, stats }: RoleIndexProps) {
+    const statsData= [
+        {name: 'Total Roles', value: stats.used +stats.unused},
+        {name: 'Assigned', value: stats.used},
+        {name: 'Unassigned', value: stats.unused},
+    ];
+
     return (
         <IndexPage title="Roles">
             <HtmlTag.Div className="space-y-6 p-6">
@@ -23,7 +28,7 @@ export default function Index({ roles, filters, stats }: RoleIndexProps) {
                     </IndexPage.CreateButton>
                 </HtmlTag.Div>
 
-                <RoleStats stats={stats} />
+                <IndexPage.Stats gaps={4} data={statsData} gridCols={3} />
 
                 <CustomSearch
                     url={roleRoutes.index().url}

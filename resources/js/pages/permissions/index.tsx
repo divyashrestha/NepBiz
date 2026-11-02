@@ -1,5 +1,4 @@
 import PermissionTable from './partials/permission-table';
-import PermissionStats from '@/components/permissions/permission-stats';
 import * as permissionRoutes from '@/routes/permissions';
 import { CustomFilter, PermissionIndex, UsedUnusedStats } from '@/types';
 import CustomSearch from '@/components/custom-search';
@@ -17,6 +16,12 @@ export default function Index({
     filters,
     stats,
 }: IndexPermissionProps) {
+    const statsData= [
+        {name: 'Total Permission', value: stats.used +stats.unused},
+        {name: 'Assigned', value: stats.used},
+        {name: 'Unassigned', value: stats.unused},
+    ];
+
     return (
         <IndexPage title="Permissions">
             <HtmlTag.Div className="space-y-6 p-6">
@@ -28,7 +33,7 @@ export default function Index({
                     </IndexPage.CreateButton>
                 </HtmlTag.Div>
 
-                <PermissionStats stats={stats} />
+                <IndexPage.Stats gaps={4} data={statsData} gridCols={3} />
 
                 <CustomSearch
                     placeholder="Search permissions..."

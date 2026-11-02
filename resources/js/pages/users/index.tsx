@@ -2,7 +2,6 @@ import { UserCustomStats, UserFilter, UserIndex } from '@/types';
 import * as userRoutes from '@/routes/users';
 import UserTable from '@/pages/users/partials/user-table';
 import CustomSearch from '@/components/custom-search';
-import UserStats from '@/components/users/user-stats';
 import {IndexPage} from "@/components/ui/pages/IndexPage";
 import {HtmlTag} from "@/components/ui/html-tag";
 
@@ -13,6 +12,11 @@ type UserIndexProps = {
 };
 
 export default function Index({ users, filters, stats }: UserIndexProps) {
+    const statsData= [
+        {name: 'Total Users', value: stats.users_count},
+        {name: 'Total Roles', value: stats.roles_count},
+    ];
+
     return (
         <IndexPage title="Users">
             <HtmlTag.Div className="space-y-6 p-6">
@@ -24,7 +28,7 @@ export default function Index({ users, filters, stats }: UserIndexProps) {
                     </IndexPage.CreateButton>
                 </HtmlTag.Div>
 
-                <UserStats stats={stats} />
+                <IndexPage.Stats gaps={4} data={statsData} gridCols={2} />
 
                 <CustomSearch
                     url={userRoutes.index().url}
