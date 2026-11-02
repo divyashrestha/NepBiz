@@ -1,11 +1,16 @@
 import { useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
-import {CheckboxOption, Permission, RoleErrors, RoleWithPermissionsUsers} from '@/types';
+import {
+    CheckboxOption,
+    Permission,
+    RoleErrors,
+    RoleWithPermissionsUsers,
+} from '@/types';
 import roles from '@/routes/roles';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
-import {Form, FormRow} from '@/components/ui/form/index.';
+import { Form, FormRow } from '@/components/ui/form/index.';
 import { AuthorizedLink } from '@/components/ui/authorized-link';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
 
 type RoleFormProps = {
     role: RoleWithPermissionsUsers | undefined;
@@ -13,7 +18,11 @@ type RoleFormProps = {
     dataErrors: RoleErrors;
 };
 
-export default function RoleForm({ role, permissions, dataErrors }: RoleFormProps) {
+export default function RoleForm({
+    role,
+    permissions,
+    dataErrors,
+}: RoleFormProps) {
     const { data, setData, post, put } = useForm({
         name: role?.name ?? '',
         permissions: role?.permissions?.map((p) => p.id) ?? [],
@@ -30,7 +39,6 @@ export default function RoleForm({ role, permissions, dataErrors }: RoleFormProp
             setErrors(dataErrors as unknown as Record<string, string>);
         }
     }, [dataErrors]);
-
 
     const submit = (e: CustomSubmitEvent) => {
         e.preventDefault();

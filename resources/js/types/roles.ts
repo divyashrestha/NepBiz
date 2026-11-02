@@ -29,4 +29,4 @@ export type RoleIndex = CustomPagination & {
 export type RoleErrors = {
     name: string;
     permissions: string;
-}
+};

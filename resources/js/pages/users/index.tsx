@@ -2,8 +2,8 @@ import { UserCustomStats, UserFilter, UserIndex } from '@/types';
 import * as userRoutes from '@/routes/users';
 import UserTable from '@/pages/users/partials/user-table';
 import CustomSearch from '@/components/custom-search';
-import {IndexPage} from "@/components/ui/pages/IndexPage";
-import {HtmlTag} from "@/components/ui/html-tag";
+import { IndexPage } from '@/components/ui/pages/IndexPage';
+import { HtmlTag } from '@/components/ui/html-tag';
 
 type UserIndexProps = {
     users: UserIndex;
@@ -12,9 +12,9 @@ type UserIndexProps = {
 };
 
 export default function Index({ users, filters, stats }: UserIndexProps) {
-    const statsData= [
-        {name: 'Total Users', value: stats.users_count},
-        {name: 'Total Roles', value: stats.roles_count},
+    const statsData = [
+        { name: 'Total Users', value: stats.users_count },
+        { name: 'Total Roles', value: stats.roles_count },
     ];
 
     return (
@@ -23,7 +23,10 @@ export default function Index({ users, filters, stats }: UserIndexProps) {
                 <HtmlTag.Div className="flex items-center justify-between">
                     <IndexPage.Header>Users</IndexPage.Header>
 
-                    <IndexPage.CreateButton perform='users' url={userRoutes.create().url}>
+                    <IndexPage.CreateButton
+                        perform="users"
+                        url={userRoutes.create().url}
+                    >
                         Add User
                     </IndexPage.CreateButton>
                 </HtmlTag.Div>

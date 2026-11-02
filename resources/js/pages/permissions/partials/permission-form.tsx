@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import permissions from '@/routes/permissions';
 import { Permission, PermissionErrors } from '@/types';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
-import {Form, FormRow} from '@/components/ui/form/index.';
-import {useEffect, useState} from 'react';
+import { Form, FormRow } from '@/components/ui/form/index.';
+import { useEffect, useState } from 'react';
 import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 type PermissionFormProps = {

@@ -1,13 +1,13 @@
 import permissions from '@/routes/permissions';
-import {Permission} from '@/types';
-import {AuthorizedLink} from '@/components/ui/authorized-link';
-import {Info, ShieldCheck} from 'lucide-react';
-import {HtmlTag} from "@/components/ui/html-tag";
-import {ShowPage} from "@/components/ui/pages/ShowPage";
+import { Permission } from '@/types';
+import { AuthorizedLink } from '@/components/ui/authorized-link';
+import { Info, ShieldCheck } from 'lucide-react';
+import { HtmlTag } from '@/components/ui/html-tag';
+import { ShowPage } from '@/components/ui/pages/ShowPage';
 
 type ShowProps = { permission: Permission };
 
-export default function Show({permission}: ShowProps) {
+export default function Show({ permission }: ShowProps) {
     return (
         <ShowPage title="Show roles">
             <ShowPage.Header>
@@ -39,16 +39,13 @@ export default function Show({permission}: ShowProps) {
 
             <ShowPage.Grid cols={2}>
                 <ShowPage.Card
-                    icon={<ShieldCheck className="h-5 w-5"/>}
+                    icon={<ShieldCheck className="h-5 w-5" />}
                     iconVariant="blue"
                 >
-                    <ShowPage.CardBody
-                        title="Name"
-                        values={permission.name}
-                    />
+                    <ShowPage.CardBody title="Name" values={permission.name} />
                 </ShowPage.Card>
                 <ShowPage.Card
-                    icon={<Info className="h-5 w-5"/>}
+                    icon={<Info className="h-5 w-5" />}
                     iconVariant="purple"
                 >
                     <ShowPage.CardBody

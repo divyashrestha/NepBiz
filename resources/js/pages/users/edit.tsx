@@ -1,7 +1,7 @@
 import users from '@/routes/users';
 import { Permission, Role, User, UserErrors } from '@/types';
-import {UserRoundPen} from "lucide-react";
-import {EditPage} from "@/components/ui/pages/EditPage";
+import { UserRoundPen } from 'lucide-react';
+import { EditPage } from '@/components/ui/pages/EditPage';
 import UserForm from '@/pages/users/partials/user-form';
 
 type EditProps = {
@@ -13,7 +13,7 @@ type EditProps = {
 
 export default function Edit({ user, roles, permissions, errors }: EditProps) {
     return (
-        <EditPage title='Edit user' icon={<UserRoundPen />} >
+        <EditPage title="Edit user" icon={<UserRoundPen />}>
             <UserForm
                 user={user}
                 dataErrors={errors}

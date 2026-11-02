@@ -2,8 +2,8 @@ import RoleTable from './partials/role-table';
 import { RoleIndex, CustomFilter, UsedUnusedStats } from '@/types';
 import * as roleRoutes from '@/routes/roles';
 import CustomSearch from '@/components/custom-search';
-import {IndexPage} from "@/components/ui/pages/IndexPage";
-import {HtmlTag} from "@/components/ui/html-tag";
+import { IndexPage } from '@/components/ui/pages/IndexPage';
+import { HtmlTag } from '@/components/ui/html-tag';
 
 type RoleIndexProps = {
     roles: RoleIndex;
@@ -12,10 +12,10 @@ type RoleIndexProps = {
 };
 
 export default function Index({ roles, filters, stats }: RoleIndexProps) {
-    const statsData= [
-        {name: 'Total Roles', value: stats.used +stats.unused},
-        {name: 'Assigned', value: stats.used},
-        {name: 'Unassigned', value: stats.unused},
+    const statsData = [
+        { name: 'Total Roles', value: stats.used + stats.unused },
+        { name: 'Assigned', value: stats.used },
+        { name: 'Unassigned', value: stats.unused },
     ];
 
     return (
@@ -23,7 +23,10 @@ export default function Index({ roles, filters, stats }: RoleIndexProps) {
             <HtmlTag.Div className="space-y-6 p-6">
                 <HtmlTag.Div className="flex items-center justify-between">
                     <IndexPage.Header>Roles</IndexPage.Header>
-                    <IndexPage.CreateButton perform='roles' url={roleRoutes.create().url}>
+                    <IndexPage.CreateButton
+                        perform="roles"
+                        url={roleRoutes.create().url}
+                    >
                         Add Role
                     </IndexPage.CreateButton>
                 </HtmlTag.Div>

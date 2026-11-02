@@ -1,15 +1,15 @@
-import {RoleWithPermissionsUsers} from '@/types';
+import { RoleWithPermissionsUsers } from '@/types';
 import roles from '@/routes/roles';
-import {AuthorizedLink} from '@/components/ui/authorized-link';
-import {Info, KeyRound, ShieldCheck, UserCheck} from 'lucide-react';
-import {HtmlTag} from "@/components/ui/html-tag";
-import {ShowPage} from "@/components/ui/pages/ShowPage";
+import { AuthorizedLink } from '@/components/ui/authorized-link';
+import { Info, KeyRound, ShieldCheck, UserCheck } from 'lucide-react';
+import { HtmlTag } from '@/components/ui/html-tag';
+import { ShowPage } from '@/components/ui/pages/ShowPage';
 
 type ShowProps = { role: RoleWithPermissionsUsers };
 
-export default function Show({role}: ShowProps) {
+export default function Show({ role }: ShowProps) {
     return (
-        <ShowPage title='Show roles'>
+        <ShowPage title="Show roles">
             <ShowPage.Header>
                 <HtmlTag.Div className="space-y-1">
                     <AuthorizedLink
@@ -17,13 +17,9 @@ export default function Show({role}: ShowProps) {
                         href={roles.index().url}
                         className="inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
                     >
-                        <ShowPage.BackButton>
-                            Back to Roles
-                        </ShowPage.BackButton>
+                        <ShowPage.BackButton>Back to Roles</ShowPage.BackButton>
                     </AuthorizedLink>
-                    <ShowPage.HeaderTitle>
-                        Role Details
-                    </ShowPage.HeaderTitle>
+                    <ShowPage.HeaderTitle>Role Details</ShowPage.HeaderTitle>
                 </HtmlTag.Div>
                 <HtmlTag.Div>
                     <AuthorizedLink
@@ -37,24 +33,21 @@ export default function Show({role}: ShowProps) {
 
             <ShowPage.Grid cols={2}>
                 <ShowPage.Card
-                    icon={<ShieldCheck className="h-5 w-5"/>}
+                    icon={<ShieldCheck className="h-5 w-5" />}
                     iconVariant="blue"
                 >
-                    <ShowPage.CardBody title="Name" values={role.name}/>
+                    <ShowPage.CardBody title="Name" values={role.name} />
                 </ShowPage.Card>
                 <ShowPage.Card
-                    icon={<Info className="h-5 w-5"/>}
+                    icon={<Info className="h-5 w-5" />}
                     iconVariant="purple"
                 >
-                    <ShowPage.CardBody
-                        title="Guard"
-                        values={role.guard_name}
-                    />
+                    <ShowPage.CardBody title="Guard" values={role.guard_name} />
                 </ShowPage.Card>
             </ShowPage.Grid>
             <ShowPage.Grid cols={1}>
                 <ShowPage.Card
-                    icon={<KeyRound className="h-5 w-5"/>}
+                    icon={<KeyRound className="h-5 w-5" />}
                     iconVariant="blue"
                 >
                     <ShowPage.CardBody
@@ -63,10 +56,10 @@ export default function Show({role}: ShowProps) {
                     />
                 </ShowPage.Card>
                 <ShowPage.Card
-                    icon={<UserCheck className="h-5 w-5"/>}
+                    icon={<UserCheck className="h-5 w-5" />}
                     iconVariant="blue"
                 >
-                    <ShowPage.CardBody title="Users" values={role.users}/>
+                    <ShowPage.CardBody title="Users" values={role.users} />
                 </ShowPage.Card>
             </ShowPage.Grid>
         </ShowPage>

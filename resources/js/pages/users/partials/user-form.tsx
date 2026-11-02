@@ -4,7 +4,7 @@ import { CheckboxOption, Permission, Role, User, UserErrors } from '@/types';
 import { CustomChangeEvent, CustomSubmitEvent } from '@/types/custom';
 import users from '@/routes/users';
 import { useEffect, useState } from 'react';
-import {Form, FormRow} from '@/components/ui/form/index.';
+import { Form, FormRow } from '@/components/ui/form/index.';
 import { validateConfirmPassword, validateField } from '@/lib/form/validation';
 import { useDebounce } from '@/lib/debounce';
 import { AuthorizedLink } from '@/components/ui/authorized-link';

@@ -1,9 +1,9 @@
-import {ChangeEvent, FormHTMLAttributes, ReactNode} from 'react';
+import { ChangeEvent, FormHTMLAttributes, ReactNode } from 'react';
 
 export type FormProps = FormHTMLAttributes<HTMLFormElement> & {
-    name: string
-    children: ReactNode
-}
+    name: string;
+    children: ReactNode;
+};
 
 export type CheckboxOption = {
     id: string | number;
