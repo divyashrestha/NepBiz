@@ -1,35 +1,50 @@
-import RoleActions from '@/components/roles/role-actions';
-import { RoleWithCounts } from '@/types';
+import { RoleIndex, RoleWithCounts } from '@/types';
+import Pagination from '@/components/pagination';
+import { DataTable } from '@/components/ui/table';
+import * as roleRouter from '@/routes/roles';
 
-export default function RoleTable({ roles }: { roles: RoleWithCounts[] }) {
+type RoleTableProps = { roles: RoleIndex };
+
+export default function RoleTable({ roles }: RoleTableProps) {
+    const columns = ['Name', 'Permissions', 'Users', 'Actions'];
     return (
-        <table className="w-full">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Permissions</th>
-                    <th>Users</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+        <div className="rounded-xl border">
+            <DataTable className="rounded-lg shadow-sm" id="roles-data-table">
+                <DataTable.Header columns={columns} />
 
-            <tbody>
-                {roles.map((role: RoleWithCounts) => (
-                    <tr key={role.id}>
-                        <td className={'text-center'}>{role.name}</td>
+                <DataTable.Body
+                    isEmpty={roles.data.length === 0}
+                    colSpan={columns.length}
+                >
+                    {roles.data.map((role: RoleWithCounts) => (
+                        <DataTable.Row key={role.id}>
+                            <DataTable.Cell className="text-left font-medium">
+                                {role.name}
+                            </DataTable.Cell>
+                            <DataTable.Cell>
+                                {role.permissions_count}
+                            </DataTable.Cell>
+                            <DataTable.Cell>{role.users_count}</DataTable.Cell>
 
-                        <td className={'text-center'}>
-                            {role.permissions_count}
-                        </td>
-
-                        <td className={'text-center'}>{role.users_count}</td>
-
-                        <td>
-                            <RoleActions role={role} />
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+                            <DataTable.Action
+                                id={role.id}
+                                resourceName="permission"
+                                routes={{
+                                    show: roleRouter.show(role.id).url,
+                                    edit: roleRouter.edit(role.id).url,
+                                    destroy: roleRouter.destroy(role.id).url,
+                                }}
+                                permissions={{
+                                    view: 'roles.view',
+                                    update: 'roles.update',
+                                    delete: 'roles.delete',
+                                }}
+                            />
+                        </DataTable.Row>
+                    ))}
+                </DataTable.Body>
+            </DataTable>
+            <Pagination links={roles.links} />
+        </div>
     );
 }
