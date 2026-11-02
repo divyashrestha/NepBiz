@@ -23,7 +23,7 @@ export default function Index({ users, filters, stats }: UserIndexProps) {
                 <HtmlTag.Div className="flex items-center justify-between">
                     <IndexPage.Header>Users</IndexPage.Header>
 
-                    <IndexPage.CreateButton url={userRoutes.create().url}>
+                    <IndexPage.CreateButton perform='users' url={userRoutes.create().url}>
                         Add User
                     </IndexPage.CreateButton>
                 </HtmlTag.Div>

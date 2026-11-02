@@ -23,7 +23,7 @@ export default function Index({ roles, filters, stats }: RoleIndexProps) {
             <HtmlTag.Div className="space-y-6 p-6">
                 <HtmlTag.Div className="flex items-center justify-between">
                     <IndexPage.Header>Roles</IndexPage.Header>
-                    <IndexPage.CreateButton url={roleRoutes.create().url}>
+                    <IndexPage.CreateButton perform='roles' url={roleRoutes.create().url}>
                         Add Role
                     </IndexPage.CreateButton>
                 </HtmlTag.Div>

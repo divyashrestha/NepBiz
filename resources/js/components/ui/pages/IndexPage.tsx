@@ -21,12 +21,13 @@ export const IndexPage =({children, title,...props}: IndexProps) =>{
 
 type IndexCreateButtonProps = {
     children: ReactNode;
+    perform: string;
     url: string;
 }
 
-IndexPage.CreateButton = ({children, url}: IndexCreateButtonProps) => {
+IndexPage.CreateButton = ({children, perform,  url}: IndexCreateButtonProps) => {
     return (
-        <AuthorizedLink perform="roles.create" href={url}>
+        <AuthorizedLink perform={`${perform}.create`} href={url}>
             <Button>
                 <Plus className="mr-2 h-4 w-4"/>
                 {children}

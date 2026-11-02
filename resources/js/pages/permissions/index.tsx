@@ -28,7 +28,7 @@ export default function Index({
                 <HtmlTag.Div className="flex items-center justify-between">
                     <IndexPage.Header>Permissions</IndexPage.Header>
 
-                    <IndexPage.CreateButton url={permissionRoutes.create().url}>
+                    <IndexPage.CreateButton perform={'permissions'} url={permissionRoutes.create().url}>
                         Add Permission
                     </IndexPage.CreateButton>
                 </HtmlTag.Div>
