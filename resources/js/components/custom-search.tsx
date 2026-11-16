@@ -1,7 +1,7 @@
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
-import { useDebounce } from '@/lib/debounce';
+import { useDebounce } from '@dstha/debounce';
 import { router } from '@inertiajs/react';
 import { CustomChangeEvent } from '@/types/custom';
 

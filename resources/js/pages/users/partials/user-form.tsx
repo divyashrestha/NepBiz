@@ -6,7 +6,7 @@ import users from '@/routes/users';
 import { useEffect, useState } from 'react';
 import { Form, FormRow } from '@/components/ui/form/index.';
 import { validateConfirmPassword, validateField } from '@/lib/form/validation';
-import { useDebounce } from '@/lib/debounce';
+import { useDebounce } from '@dstha/debounce';
 import { AuthorizedLink } from '@/components/ui/authorized-link';
 
 type RoleFormProps = {
